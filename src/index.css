@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.header {
+  background: url(https://art.pixilart.com/a8cea04965203d7.png) no-repeat center;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.header .navbar {
+  background-color: transparent !important;
+}
