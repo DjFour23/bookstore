@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 
 class navBar extends Component {
   render() {
@@ -8,7 +6,7 @@ class navBar extends Component {
       <>
           <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">
+              <a class="navbar-brand" href="/">
                 Navbar
               </a>
               <button
@@ -34,12 +32,12 @@ class navBar extends Component {
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/">
                       Features
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/">
                       Pricing
                     </a>
                   </li>
