@@ -2,36 +2,48 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class Login extends Component {
-  render() {
+    render() {
     return (
       <div className="formulario-Login"  margin-bottom = {"2.5rem!important"}>
 
-        <form className="Form">
+        <form action="" className="Form">
         <div >
-        <p bg={"red"}>Iniciar Sesión</p>      
+        <p>Regitrar</p>      
         </div>
           <div className="form-outline mb-4" >
-            <label  className="form-label" htmlFor="form2Example1" margin-top= {"2rem"}>
+            <label className="form-label"  margin-top= {"2rem"}>
+              Name
+            </label>
+            <input type="text" name="nombre"  className="form-control"  margin-bottom = {"2.5rem!important"}/>
+          </div>
+          <div className="form-outline mb-4" >
+            <label className="form-label" margin-top= {"2rem"}>
+            Last name
+            </label>
+            <input type="text" name="apellido"  className="form-control"  margin-bottom = {"2.5rem!important"}/>
+          </div>
+          <div className="form-outline mb-4" >
+            <label className="form-label"  margin-top= {"2rem"}>
               Email
             </label>
-            <input type="email" id="form2Example1" className="form-control"  margin-bottom = {"2.5rem!important"}/>
+            <input type="email" name="email"   className="form-control"  margin-bottom = {"2.5rem!important"}/>
           </div>
           <div className="form-outline mb-4">
-            <label  className="form-label" htmlFor="form2Example2">
+            <label className="form-label" >
               Password
             </label>
-            <input type="password" id="form2Example2" className="form-control"  margin-bottom = {"2.5rem!important"}/>
+            <input type="password" name="password" className="form-control"  margin-bottom = {"2.5rem!important"}/>
           </div>
 
           <div className="btn1">
           <button type="button" className="btn btn-primary btn-block btn-lg" >
-            Ingresar
+            Register
           </button>
           </div>
 
           <div className="text-center">
             <p>
-              Not a member? <Link to="/signUp">Register</Link>
+              Not a member? <Link to="/about">Login</Link>
             </p>
             <p>or sign up with:</p>
             <button type="button" className="btn btn-link btn-floating mx-1">
