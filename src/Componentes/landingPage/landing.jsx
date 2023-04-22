@@ -6,15 +6,15 @@ class landing extends Component {
   render() {
     return (
       <>
-        <header class="header">
+        <header className="header">
           <NavBar />
-          <div class="container-xxl bd-gutter mt-5">
-            <div class="col-md-8 mx-auto text-center">
-              <h1 class="mb-5 fw-bold display-1">
-                <i class="fa-solid fa-book-open-reader fa-beat-fade fa-xl"> </i>
-                <i class="fa-xl"> Book Store</i>
+          <div className="container-xxl bd-gutter mt-5">
+            <div className="col-md-8 mx-auto text-center">
+              <h1 className="mb-5 fw-bold display-1">
+                <i className="fa-solid fa-book-open-reader fa-beat-fade fa-xl"> </i>
+                <i className="fa-xl"> Book Store</i>
               </h1>
-              <p class="lead mb-4 fw-semibold">
+              <p className="lead mb-4 fw-semibold">
                 ¿Necesitas una herramienta donde clasificar tus{" "}
                 <mark>libros favoritos</mark>y no perderlos?. <br/> Book Store está
                 para tí; poseemos un apartado donde podras buscar tus obras
