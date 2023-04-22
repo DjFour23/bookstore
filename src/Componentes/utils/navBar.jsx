@@ -26,7 +26,7 @@ class navBar extends Component {
                     <a
                       className="nav-link active"
                       aria-current="page"
-                      href="/about"
+                      href="/login"
                     >
                       Cosa
                     </a>
@@ -46,7 +46,7 @@ class navBar extends Component {
                 className="btn btn-primary"
                 role="button"
                 aria-current="page"
-                href="/about"
+                href="/login"
               >
                 Login
               </a>

@@ -43,7 +43,7 @@ class Login extends Component {
 
           <div className="text-center">
             <p>
-              Not a member? <Link to="/about">Login</Link>
+              Not a member? <Link to="/login">Login</Link>
             </p>
             <p>or sign up with:</p>
             <button type="button" className="btn btn-link btn-floating mx-1">
