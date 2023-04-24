@@ -6,19 +6,19 @@ import swal from 'sweetalert'
 
 export function Login() {
 
-  // Inicializar usuario
+  // Initialize User
   const [usuario, setUser] = useState({
     email: "",
     password: ""
   });
 
-  // Metodos AuthContext
+  // Methods AuthContext
   const { login, role } = useAuth();
 
-  // Inicializar navigate
+  // Initialize navigate
   const navigate = useNavigate();
 
-  // Formulario
+  // Form
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -55,15 +55,15 @@ export function Login() {
   }
 };
 
-// Configurar usuario y capturar los datos en formulario
+// Configure user and capture the data in the form
 const handleChange = ({ target: { value, name } }) =>
   setUser({ ...usuario, [name]: value });
 
 
 
-// HTML Formulario login
+// HTML Login form
 return (
-  <div className="container-fluid">
+  <div className="container-fluid login-container">
     <div className="card mt-2 mb-2">
       <h5 className="card-title text-center mt-3">Login</h5>
       <div className="card-body">
