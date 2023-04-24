@@ -74,7 +74,7 @@ export function Register() {
         text: `Nice, welcome to bookstore!!!`,
         icon: "success"
       });
-      navigate("/about")
+      navigate("/login")
     } catch (error) {
       swal({
         title: "Registration error",
