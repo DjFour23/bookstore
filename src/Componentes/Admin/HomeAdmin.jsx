@@ -1,9 +1,11 @@
 import { useAuth } from "../../Context/authContext";
 
+
+// Admin view
 export function HomeAdmin() {
   const { logout, user } = useAuth();
 
-  console.log(user);
+   // Log out - Admin
   const handleLogout = async () => {
     try {
       await logout();
@@ -12,6 +14,7 @@ export function HomeAdmin() {
     }
   };
 
+  // HTML - Admin view
   return (
     <div className="w-full max-w-xs m-auto text-black">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
