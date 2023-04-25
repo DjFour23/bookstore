@@ -1,17 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+//import { db } from './Firebase/config'; // base de datos
+//import {collection, getDocs } from 'firebase/firestore';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
     <App />
-  </React.StrictMode>
+  </BrowserRouter>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+/*
+// obtener base de datos ejemplo - https://firebase.google.com/docs/firestore/query-data/queries?hl=es-419
+const usuariosRef = collection(db, "usuarios");
+getDocs(usuariosRef).then(res => console.log(res.docs.map(usuario => ({ ...usuario.data() }))))
+*/

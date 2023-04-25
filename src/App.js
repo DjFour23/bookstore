@@ -1,26 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom"
+import Login from './Componentes/loginRegister/Login';
+import Landing from './Componentes/landingPage/landing';
+import Register from "./Componentes/loginRegister/Register";
+import { AuthProvider } from "./Context/authContext";
+import  HomeAdmin from "./Componentes/Admin/HomeAdmin";
+import  HomeUser from "./Componentes/Users/HomeUser";
+import	{ProtectedRoute} from './Componentes/utils/ProtectedRoute'
 
+import "./App.css"
 function App() {
   return (
+  
+      <AuthProvider>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          The End of Diplomado <br/>
-          <label>You can (not) make a BookStore</label>
-        </p>
-        <a
-          className="App-link"
-          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Arende cosas
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={ <Landing/> } />
+        <Route path="login" element={ <Login/> } />
+        <Route path="signUp" element={ <Register/> } /> 
+        <Route path="HomeAdmin" element={<ProtectedRoute><HomeAdmin/></ProtectedRoute> } />
+        <Route path="HomeUser" element={<ProtectedRoute><HomeUser/></ProtectedRoute> } />
+    </Routes>
     </div>
-  );
+    </AuthProvider>
+    
+  )
 }
 
-export default App;
+export default App
