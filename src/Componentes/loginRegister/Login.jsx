@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./../../Context/authContext";
 import { auth } from "./../../Firebase/config";
 import swal from 'sweetalert'
+import "../../index.css"
 
 export function Login() {
 
