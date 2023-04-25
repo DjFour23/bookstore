@@ -127,7 +127,7 @@ export function Register() {
               <button type="submit" className="btn btn-success">Sign in</button>
             </div>
             <div className="text-center">
-              Already have an Account? <Link to="/about">Login</Link>
+              Already have an Account? <Link to="/login">Login</Link>
             </div>
           </form>
         </div>
