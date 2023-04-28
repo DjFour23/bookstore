@@ -4,7 +4,7 @@ import React from "react";
 const contactUs = () => {
   return (
     <>
-      <a name="contactUs"></a>
+      <a name="contactUs" href="/#" style={{height: "1px",width: "1px", position: 'absolute', overflow: 'hidden'}}>.</a>
       <section class="py-3 section-1 align-content-center justify-content-center">
         <div class="container py-3 ">
           <div class="row mt-5">

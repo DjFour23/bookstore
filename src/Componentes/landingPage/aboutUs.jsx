@@ -4,7 +4,7 @@ class aboutUs extends Component {
   render() {
     return (
       <>
-        <a name="aboutUs"></a>
+        <a name="aboutUs" href="/#" style={{height: "1px",width: "1px", position: 'absolute', overflow: 'hidden'}}>.</a>
         <div className="container">
           <div className="row">
             <div className="col-x1-4 col-lg-7 col-md-7 col-sm-7 col-xs-6 ">
