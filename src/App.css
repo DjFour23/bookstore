@@ -96,8 +96,16 @@ th {
   gap: 10px;
   width: 100%;
 }
-.button{
+
+.button {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.container-create {
+  display: flex;
+  padding: 20px;
+  gap: 10px;
+  width: 100%;
 }
