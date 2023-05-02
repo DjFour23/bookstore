@@ -9,9 +9,9 @@ class aboutUs extends Component {
         <div className="row">
 
           <div className="col-x1-4 col-lg-7 col-md-7 col-sm-7 col-xs-6 ">
-            <p>
+            
             <h1>Conozca a nuestro equipo</h1>
-            </p>
+            
           </div>
         </div>
       </div>

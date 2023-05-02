@@ -6,8 +6,9 @@ import { AuthProvider } from "./Context/authContext";
 import  HomeAdmin from "./Componentes/Admin/HomeAdmin";
 import  HomeUser from "./Componentes/Users/HomeUser";
 import	{ProtectedRoute} from './Componentes/utils/ProtectedRoute'
-
 import "./App.css"
+import Libros from "./Componentes/Libros/Libros";
+
 function App() {
   return (
   
@@ -17,6 +18,8 @@ function App() {
         <Route path="/" element={ <Landing/> } />
         <Route path="login" element={ <Login/> } />
         <Route path="signUp" element={ <Register/> } /> 
+        <Route path="Libros" element={<Libros/>}/>
+        <Route path="HomeAdmin" element={<HomeAdmin/>} />
         <Route path="HomeAdmin" element={<ProtectedRoute><HomeAdmin/></ProtectedRoute> } />
         <Route path="HomeUser" element={<ProtectedRoute><HomeUser/></ProtectedRoute> } />
     </Routes>

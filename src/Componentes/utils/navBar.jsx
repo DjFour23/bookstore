@@ -41,6 +41,7 @@ class navBar extends Component {
                       Pricing
                     </a>
                   </li>
+                  
                 </ul>
                 <a
                 className="btn btn-primary"
