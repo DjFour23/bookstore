@@ -19,6 +19,13 @@ function Libros() {
           <button id="add">
             Save
           </button>
+          <div>
+          {/* <a href="/HomeAdmin" className='back'> */}
+          <button className="back">
+            Back
+          </button>
+          {/* </a> */}
+          </div>
         </form>
         </div>
       </div>

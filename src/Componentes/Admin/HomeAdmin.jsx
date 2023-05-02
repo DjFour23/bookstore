@@ -62,7 +62,7 @@ export function HomeAdmin() {
 
   // Abrir modal
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  /* const handleOpen = () => setOpen(true); */
   const handleClose = () => setOpen(false);
   // HTML - Admin view
   return (
@@ -88,9 +88,11 @@ export function HomeAdmin() {
         <div className="container-admin">
           <div className="container-create">
             <h2>Libros</h2>
-            <IconButton color="primary" className="iconModal" onClick={handleOpen}>
+            <a href="/Libros">
+            <IconButton color="primary" className="iconModal" >
               <AiFillPlusSquare fontSize={"29px"} />
             </IconButton>
+            </a>
           </div>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
