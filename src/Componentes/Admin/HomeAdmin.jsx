@@ -88,7 +88,7 @@ export function HomeAdmin() {
         <div className="container-admin">
           <div className="container-create">
             <h2>Libros</h2>
-            <a href="/Libros">
+            <a href="/HomeAdmin/Libros">
             <IconButton color="primary" className="iconModal" >
               <AiFillPlusSquare fontSize={"29px"} />
             </IconButton>
@@ -110,8 +110,8 @@ export function HomeAdmin() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {libros.map((item) => (
-                  <TableRow key={item.id}>
+                {libros.map((item, id) => (
+                  <TableRow key={id}>
                     <TableCell scope="center">{item.id}</TableCell>
                     <TableCell align="center">{item.nombre}</TableCell>
                     <TableCell align="center">{item.genero}</TableCell>
