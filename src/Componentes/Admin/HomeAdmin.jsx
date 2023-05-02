@@ -113,11 +113,10 @@ export function HomeAdmin() {
                     <TableCell align="center">{item.autor}</TableCell>
                     <TableCell align="center">{item.year}</TableCell>
                     <TableCell align="center">{item.disponible}</TableCell>
-                    <TableCell align="center">{item.caratula}</TableCell>
+                    <TableCell align="center"><img src={item.caratula} alt=""  style={{width: '100px'}} /></TableCell>
                     <TableCell
                       sx={{
                         display: "flex",
-                        alignItems: "center",
                         justifyContent: "center",
 
                       }}
