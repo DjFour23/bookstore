@@ -100,6 +100,8 @@ export function HomeAdmin() {
                 <TableRow>
                   <TableCell align="center" padding="none">ID</TableCell>
                   <TableCell align="center" padding="none">NOMBRE</TableCell>
+                  <TableCell align="center" padding="none">GENERO</TableCell>
+                  <TableCell align="center" padding="none">DESCRIPCION</TableCell>
                   <TableCell align="center" padding="none">AUTOR</TableCell>
                   <TableCell align="center" padding="none">AÑO</TableCell>
                   <TableCell align="center" padding="none">DISPONIBLE</TableCell>
@@ -112,6 +114,8 @@ export function HomeAdmin() {
                   <TableRow key={item.id}>
                     <TableCell scope="center">{item.id}</TableCell>
                     <TableCell align="center">{item.nombre}</TableCell>
+                    <TableCell align="center">{item.genero}</TableCell>
+                    <TableCell align="center">{item.descripcion}</TableCell>
                     <TableCell align="center">{item.autor}</TableCell>
                     <TableCell align="center">{item.year}</TableCell>
                     <TableCell align="center">{item.disponible}</TableCell>
