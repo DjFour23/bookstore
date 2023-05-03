@@ -22,7 +22,8 @@ export function Register() {
 
   // Capturing data in registration form
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    console.log(usuario)
     try {
       if (
         usuario.name === "" &&
@@ -86,7 +87,7 @@ export function Register() {
         usuario.password,
         usuario.role
       );
-     /*  setLoading(true); */
+      /*  setLoading(true); */
       swal({
         title: "Registration completed",
         text: `Nice, welcome to bookstore!!!`,
@@ -104,82 +105,69 @@ export function Register() {
 
   // HTML- Registration Form
   return (
-    <div className="Container-Todo">
-    <div className="login-container">
-      <div className="card">
-        <h5 className="card-title text-center mt-3">Sign up</h5>
-        <div className="card-body">
-          <form onSubmit={handleSubmit}>
-            <div className="mb-0">
-              <label className="form-label" htmlFor="name">
-                Name
-              </label>
+    <>
+      <main className="contentForm container">
+        <h2 style={{ marginBottom: "20px" }}>Sign Up</h2>
+        <div className="boxForm">
+          <form>
+            <div className="form-group">
+              <label htmlFor="name">Name:</label>
               <input
                 type="text"
                 name="name"
                 id="name"
-                onChange={(e) =>
-                  setUsuario({ ...usuario, name: e.target.value })
-                }
                 className="form-control"
-                placeholder="Example: Pepito"
+                onChange={({ target }) => {
+                  setUsuario((data) => ({ ...data, name: target.value }));
+                }}
               />
             </div>
-            <div className="mb-0">
-              <label className="form-label" htmlFor="lastname">
-                Last Name
-              </label>
+            <div className="form-group">
+              <label htmlFor="lastName">Last name:</label>
               <input
                 type="text"
                 name="lastname"
-                id="lastname"
-                onChange={(e) =>
-                  setUsuario({ ...usuario, lastname: e.target.value })
-                }
+                id="lastName"
                 className="form-control"
-                placeholder="Example: Perez"
+                onChange={({ target }) => {
+                  setUsuario((data) => ({ ...data, lastname: target.value }));
+                }}
               />
             </div>
-            <div className="mb-0">
-              <label className="form-label" htmlFor="email">
-                Email address
-              </label>
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
               <input
                 type="email"
                 name="email"
                 id="email"
-                onChange={(e) =>
-                  setUsuario({ ...usuario, email: e.target.value })
-                }
                 className="form-control"
-                placeholder="example@domain.com"
+                onChange={({ target }) => {
+                  setUsuario((data) => ({ ...data, email: target.value }));
+                }}
               />
             </div>
-            <div className="mb-0">
-              <label className="form-label" htmlFor="password">
-                Password
-              </label>
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
               <input
                 type="password"
                 name="password"
                 id="password"
-                onChange={(e) =>
-                  setUsuario({ ...usuario, password: e.target.value })
-                }
                 className="form-control"
-                placeholder="*************"
+                onChange={({ target }) => {
+                  setUsuario((data) => ({ ...data, password: target.value }));
+                }}
               />
             </div>
-            <div className=" mb-0">
-              <label className="form-label" htmlFor="role">
+            <div className="form-group">
+              <label htmlFor="role">
                 Role
               </label>
               <select
                 className="form-select"
                 aria-label="Default select example"
                 id="role"
-                onChange={(e) =>
-                  setUsuario({ ...usuario, role: e.target.value })
+                onChange={({ target }) =>
+                  setUsuario({ ...usuario, role: target.value })
                 }
               >
                 <option defaultChecked value="0">
@@ -189,20 +177,22 @@ export function Register() {
                 <option value="2">User</option>
               </select>
             </div>
-            <div className="button">
-              <button type="submit" className="btn btn-success">
-                {/* {loading ? <CircularProgress /> : <>Sign up</>} */}
-                Sign up
+            <div className="buttonsForm">
+              <div className="LinksForms">
+                <Link to={"/login"}>Sign in</Link>
+              </div>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => handleSubmit()}
+              >
+                Send
               </button>
-            </div>
-            <div className="text-center">
-              Already have an Account? <Link to="/login">Login</Link>
             </div>
           </form>
         </div>
-      </div>
-    </div>
-    </div>
+      </main>
+    </>
   );
 }
 
