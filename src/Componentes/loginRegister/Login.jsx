@@ -14,7 +14,7 @@ export function Login() {
     password: "",
   });
   // Methods AuthContext
-  const { login, role } = useAuth();
+  const { login, role, validate } = useAuth();
 
   // Initialize navigate
   const navigate = useNavigate();
@@ -23,18 +23,6 @@ export function Login() {
   const handleSubmit = async (e) => {
     // e.preventDefault();
     try {
-      if (usuario.email === "" && usuario.password === "")
-        return swal({
-          title: "Error",
-          text: `Complete the form`,
-          icon: "error",
-        });
-      if (usuario.password === "")
-        return swal({
-          title: "Error",
-          text: `Type a password`,
-          icon: "error",
-        });
       // Login (firebase)
       await login(usuario.email, usuario.password);
       const user = auth.currentUser;
@@ -44,20 +32,17 @@ export function Login() {
       const rol = await role(user);
       rol === 1 ? navigate("/HomeAdmin") : navigate("/HomeUser");
     } catch (error) {
-      swal({
-        title: "Authentication Error",
-        text: `Oops`,
-        icon: "error",
-      });
+      return validate(error.code)
+      //console.log(error)
     }
-  };
+  }
 
 
   // HTML Login form
   return (
     <>
       <main className="contentForm container">
-        <h2 style={{marginBottom: '20px'}}>Login</h2>
+        <h2 style={{ marginBottom: '20px' }}>Login</h2>
         <div className="boxForm">
           <form >
             <div className="form-group">
@@ -68,7 +53,7 @@ export function Login() {
                 id="email"
                 className="form-control"
                 onChange={({ target }) => {
-                  setUser((data) => ({...data, email: target.value }));
+                  setUser((data) => ({ ...data, email: target.value }));
                 }}
               />
             </div>
@@ -80,7 +65,7 @@ export function Login() {
                 id="password"
                 className="form-control"
                 onChange={({ target }) => {
-                  setUser((data) => ({...data, password: target.value }));
+                  setUser((data) => ({ ...data, password: target.value }));
                 }}
               />
             </div>
@@ -88,7 +73,7 @@ export function Login() {
               <div className="LinksForms">
                 <Link to={"/signUp"}>Sign up</Link>
               </div>
-              <button type="button" className="btn btn-primary" onClick={()=> handleSubmit()} >
+              <button type="button" className="btn btn-primary" onClick={() => handleSubmit()} >
                 Send
               </button>
             </div>
