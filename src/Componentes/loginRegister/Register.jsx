@@ -7,7 +7,7 @@ import "../../index.css";
 
 export function Register() {
   // Calling methods in Auth Context
-  const { signup, emailValidator } = useAuth();
+  const { signup, validate } = useAuth();
 
   // Initializing user states
   const [usuario, setUsuario] = useState({
@@ -25,81 +25,30 @@ export function Register() {
     // e.preventDefault();
     console.log(usuario)
     try {
-      if (
-        usuario.name === "" &&
-        usuario.lastname === "" &&
-        usuario.email === "" &&
-        usuario.password === ""
-      )
-        return swal({
-          title: "Error",
-          text: `Complete the form`,
-          icon: "error",
-        });
-      if (usuario.name === "")
-        return swal({
-          title: "Error",
-          text: `Type your name`,
-          icon: "error",
-        });
-
-      if (usuario.lastname === "")
-        return swal({
-          title: "Error",
-          text: `Type your last name`,
-          icon: "error",
-        });
-      if (usuario.email === "")
-        return swal({
-          title: "Error",
-          text: `Type your email`,
-          icon: "error",
-        });
-      const response = await emailValidator(usuario.email);
-      if (response === false)
-        return swal({
-          title: "Email already exists",
-          text: `Type another email ...`,
-          icon: "error",
-        });
-      if (usuario.password === "")
-        return swal({
-          title: "Error",
-          text: `Type your password`,
-          icon: "error",
-        });
-      if (usuario.password.length < 6)
-        return swal({
-          title: "Error",
-          text: `Your password must have 6 characters`,
-          icon: "error",
-        });
-      if (usuario.role === "0")
+      if (usuario.role === "0") {
         return swal({
           title: "Error",
           text: `Please select a role`,
           icon: "error",
         });
-      await signup(
-        usuario.name,
-        usuario.lastname,
-        usuario.email,
-        usuario.password,
-        usuario.role
-      );
-      /*  setLoading(true); */
-      swal({
-        title: "Registration completed",
-        text: `Nice, welcome to bookstore!!!`,
-        icon: "success",
-      });
-      navigate("/login");
+      } else {
+        await signup(
+          usuario.name,
+          usuario.lastname,
+          usuario.email,
+          usuario.password,
+          usuario.role
+        );
+        /*  setLoading(true); */
+        swal({
+          title: "Registration completed",
+          text: `Nice, welcome to bookstore!!!`,
+          icon: "success",
+        });
+        navigate("/login");
+      }
     } catch (error) {
-      swal({
-        title: "Registration error",
-        text: `Try again`,
-        icon: "error",
-      });
+      return validate(error.code)
     }
   };
 
