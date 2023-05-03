@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./../../Context/authContext";
 import { auth } from "./../../Firebase/config";
-import swal from "sweetalert";
 import "./login.css";
 
 
@@ -33,7 +32,6 @@ export function Login() {
       rol === 1 ? navigate("/HomeAdmin") : navigate("/HomeUser");
     } catch (error) {
       return validate(error.code)
-      //console.log(error)
     }
   }
 
