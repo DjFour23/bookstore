@@ -19,7 +19,7 @@ function NewLibro() {
   const onCreate = async () => {
     try {
       const respuesta = await validado(libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula)
-      if (respuesta.correcto == true) {
+      if (respuesta.correcto === true) {
         const urlOk = validURL(libro.caratula)
         if (urlOk) {
           await saveLibro(libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula);
