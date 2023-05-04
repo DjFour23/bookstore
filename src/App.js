@@ -22,8 +22,9 @@ function App() {
         {/* <Route path="HomeAdmin" element={<HomeAdmin/>} /> */}
         <Route path="HomeAdmin" element={<ProtectedRoute><HomeAdmin/></ProtectedRoute> } />
         <Route path="HomeAdmin/NewLibro" element={<ProtectedRoute><NewLibro/></ProtectedRoute>}/>
-        <Route path="HomeAdmin/UpdateLibro" element={<ProtectedRoute><UpdateLibro/></ProtectedRoute>}/>
+        <Route path="HomeAdmin/UpdateLibro/:id" element={<ProtectedRoute><UpdateLibro/></ProtectedRoute>}/>
         <Route path="HomeUser" element={<ProtectedRoute><HomeUser/></ProtectedRoute> } />
+        <Route path="*" element={<h1>404: Not Found</h1>} />
     </Routes>
     </div>
     </AuthProvider>
