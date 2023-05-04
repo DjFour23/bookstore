@@ -19,7 +19,6 @@ function App() {
         <Route path="/" element={ <Landing/> } />
         <Route path="login" element={ <Login/> } />
         <Route path="signUp" element={ <Register/> } /> 
-        {/* <Route path="HomeAdmin" element={<HomeAdmin/>} /> */}
         <Route path="HomeAdmin" element={<ProtectedRoute><HomeAdmin/></ProtectedRoute> } />
         <Route path="HomeAdmin/NewLibro" element={<ProtectedRoute><NewLibro/></ProtectedRoute>}/>
         <Route path="HomeAdmin/UpdateLibro/:id" element={<ProtectedRoute><UpdateLibro/></ProtectedRoute>}/>
