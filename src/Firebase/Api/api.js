@@ -11,6 +11,19 @@ import { db } from "./../config"
 import swal from "sweetalert";
 
 const collectionName = 'libros';
+// validar url
+export const validURL = (url) => {
+  var pattern = new RegExp(
+    "^(https?:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$",
+    "i"
+  ) 
+  return !!pattern.test(url);
+}
 // validar formulario
 export const validado = async (nombre, autor, descripcion, genero, year, disponible, caratula) => {
   let ok = true
