@@ -31,7 +31,7 @@ function UpdateLibro() {
     try {
       const respuesta = await validado(libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula)
       if (respuesta.correcto === true) {
-        const urlOk = validURL(libro.caratula)
+        const urlOk = await validURL(libro.caratula)
         if (urlOk) {
           await updateLibro(params.id, libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula);
           swal({

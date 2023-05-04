@@ -11,7 +11,7 @@ import { db } from "./../config"
 
 const collectionName = 'libros';
 // validar url
-export const validURL = (url) => {
+export const validURL = async (url) => {
   var pattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol
       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
