@@ -24,7 +24,7 @@ function NewLibro() {
         if (urlOk) {
           await saveLibro(libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula);
           swal({
-            title: "Libro Creado",
+            title: "Book created",
             icon: "success",
           });
           navigate('/HomeAdmin')
