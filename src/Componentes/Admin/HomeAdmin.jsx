@@ -33,6 +33,7 @@ export function HomeAdmin() {
   const onDelete = async (id) => {
     try {
       await deleteLibro(id);
+      getLinks();
       swal({
         title: "Libro eliminado",
         icon: "success",
@@ -95,7 +96,6 @@ export function HomeAdmin() {
                     onClick={(e) => {
                       e.stopPropagation();
                       onDelete(item.id);
-                      getLinks();
                     }}
                   >
                     <MdDelete fontSize={"29px"} />
