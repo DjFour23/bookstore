@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { saveLibro, validado } from "../../Firebase/Api/api";
+import { saveLibro, validado, validURL } from "../../Firebase/Api/api";
 import swal from "sweetalert";
 
 function NewLibro() {
@@ -20,12 +20,22 @@ function NewLibro() {
     try {
       const respuesta = await validado(libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula)
       if (respuesta.correcto == true) {
-        await saveLibro(libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula);
-        swal({
-          title: "Libro Creado",
-          icon: "success",
-        });
-        navigate('/HomeAdmin')
+        const urlOk = validURL(libro.caratula)
+        if (urlOk) {
+          await saveLibro(libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula);
+          swal({
+            title: "Libro Creado",
+            icon: "success",
+          });
+          navigate('/HomeAdmin')
+        } else {
+          swal({
+            title: "Error",
+            text: ` The url is invalid`,
+            icon: "error"
+          });
+        }
+
       } else {
         swal({
           title: "Incomplete form",
@@ -33,8 +43,6 @@ function NewLibro() {
           icon: "error"
         });
       }
-
-
     } catch (error) {
       swal({
         title: `${error.message}`,
