@@ -84,7 +84,7 @@ export function HomeAdmin() {
                   backgroundSize: "cover",
                 }}
               >
-                <h2 style={{ color: "#000", fontWeight: "600" }}>
+                <h2 style={{ color: "#000", fontWeight: "1000" }}>
                   {item.nombre}
                 </h2>
                 <div className="ActionsLibros">
