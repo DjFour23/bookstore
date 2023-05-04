@@ -8,7 +8,6 @@ import {
   updateDoc
 } from "firebase/firestore"
 import { db } from "./../config"
-import swal from "sweetalert";
 
 const collectionName = 'libros';
 // validar url
