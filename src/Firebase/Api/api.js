@@ -15,8 +15,8 @@ const collectionName = 'libros';
 export const validado = async (nombre, autor, descripcion, genero, year, disponible, caratula) => {
   let ok = true
   let response = { correcto: ok, campo: "" }
-  const campos = [nombre, autor, descripcion, genero, year, disponible, caratula]
-  const name = ["title", "author", "description", "book type", "year", "available", "book cover"]
+  const campos = [nombre, autor, descripcion, year, genero, disponible, caratula]
+  const name = ["title", "author", "description", "year", "book type", "available", "book cover"]
   for (const key in campos) {
     if (campos[key] === "" || campos[key] === "0") {
       ok = false
