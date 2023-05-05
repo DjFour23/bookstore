@@ -23,7 +23,7 @@ export const validURL = async (url) => {
   ) 
   return !!pattern.test(url);
 }
-// validar formulario
+// validar formulario libros
 export const validado = async (nombre, autor, descripcion, genero, year, disponible, caratula) => {
   let ok = true
   let response = { correcto: ok, campo: "" }
@@ -70,4 +70,21 @@ export const updateLibro = async (id, nombre, autor, descripcion, genero, year, 
     disponible: Boolean(disponible),
     caratula: caratula
   });
+
+// validar formulario registro usuario
+export const registerOk = async (nombre,apellido,email,password,role) => {
+  let ok = true
+  let response = { correcto: ok, campo: "" }
+  const campos = [nombre,apellido,email,password,role]
+  const name = ["name", "lasname", "email", "password", "role"]
+  for (const key in campos) {
+    if (campos[key] === "" || campos[key] === "0") {
+      ok = false
+      response = { correcto: ok, campo: name[key] }
+      break
+    }
+  }
+
+  return response
+}
 
