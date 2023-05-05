@@ -1,10 +1,26 @@
 import { useAuth } from "../../Context/authContext";
 import * as React from "react";
 import { getLibros } from "./../../Firebase/Api/api";
+import { useState } from "react";
+import { useChat } from "../Chat/useChat";
+import {db} from "./../../Firebase/config"
+import { collection } from "firebase/firestore";
 
 // User view
 export function HomeUser() {
   const { logout, user } = useAuth();
+  const [message, setMessage] = useState("");
+  const { chat} = useChat();
+
+  const sendMessage = (e)=> {
+    e.preventDefault();
+
+    collection(db, 'chat').add({
+      timestamp: Date.now(),
+      message
+    });
+  }
+
 
   // Log out - User
   const handleLogout = async () => {
@@ -23,6 +39,7 @@ export function HomeUser() {
       docs.push({ ...doc.data(), id: doc.id });
     });
     setLibros(docs);
+    /*  console.log(docs); */
   };
 
   // cargar los libros
@@ -54,13 +71,13 @@ export function HomeUser() {
       <div className="container text-center">
         <div className="row">
           <div className="col-sm-12 col-md-4 col-lg-2 mb-5">
-            <div class="card rounded-5">
+            <div className="card rounded-5">
               <br></br>
-              <div class="card-body">
+              <div className="card-body">
                 {/* {console.log(user)} */}
-                <h5 class="card-title">{user.displayName || user.email}</h5>
+                <h5 className="card-title">{user.displayName || user.email}</h5>
                 <br></br>
-                <a href="/" onClick={handleLogout} class="btn btn-danger">
+                <a href="/" onClick={handleLogout} className="btn btn-danger">
                   logout
                 </a>
               </div>
@@ -89,29 +106,35 @@ export function HomeUser() {
                 h-25 
                 "
             >
-              <div class="card-group">
+              <div className="card-group">
                 {libros.map((item, id) => (
                   <>
-                    <div className="col-lg-3 col-md-2 col-sm-1 col-xs-1 mb-2 p-2 ">
+                    <div
+                      className="col-lg-3 col-md-2 col-sm-1 col-xs-1 mb-2 p-2 " /* key={item.id} */
+                    >
                       <div className="card shadow-sm mt-4 p-1">
-                        <img class="card-img" src={item.caratula} alt="..." />
-                        <div class="card-img-overlay">
+                        <img
+                          className="card-img"
+                          src={item.caratula}
+                          alt="..."
+                        />
+                        <div className="card-img-overlay">
                           <div className="card text-center  border-info  text-bg-dark ">
                             <div className="card-body">
-                              <p className="card-text lead mb-4 fw-semibold">
-                                <h5 class="card-title">{item.nombre}</h5>
-                                <label class="fancy-checkbox">
+                              <div className="card-text lead mb-4 fw-semibold">
+                                <h5 className="card-title">{item.nombre}</h5>
+                                <label className="fancy-checkbox">
                                   <input type="checkbox" />
                                   <i
-                                    class="fa-solid fa-star checked fa-lg"
+                                    className="fa-solid fa-star checked fa-lg"
                                     style={{ color: "#eeff00" }}
                                   ></i>
                                   <i
-                                    class="fa-regular fa-star unchecked fa-lg"
+                                    className="fa-regular fa-star unchecked fa-lg"
                                     style={{ color: "#eeff00" }}
                                   ></i>
                                 </label>
-                              </p>
+                              </div>
                             </div>
                           </div>
 
@@ -120,17 +143,19 @@ export function HomeUser() {
                       </p> */}
                           {/* <small class="text-muted align-self-end">
                         <i
-                          class="fa-sharp fa-solid fa-star fa-2xl"
+                        class="fa-sharp fa-solid fa-star fa-2xl"
                           style={{ color: "#eeff00" }}
-                        ></i>
-                      </small> */}
+                          ></i>
+                        </small> */}
                         </div>
-                        <div class="card-footer">
+                        <div className="card-footer">
                           <small>
                             {item.disponible ? (
-                              <span class="badge text-bg-success">Prestar</span>
+                              <span className="badge text-bg-success">
+                                Prestar
+                              </span>
                             ) : (
-                              <span class="badge text-bg-danger">
+                              <span className="badge text-bg-danger">
                                 Prestado :c
                               </span>
                             )}
@@ -142,6 +167,19 @@ export function HomeUser() {
                 ))}
               </div>
             </div>
+
+
+            <div className="costado">
+              <form>
+              <input type="text" value={message} placeholder="Escribir Mensaje" onChange={(e)=>setMessage(e.target.value)}/>
+              <button type="submit" onClick={sendMessage}>Enviar</button>
+              </form>
+              <ul>
+                {chat.map(m=> <p key={m.id}>{m.message}</p>)}
+              </ul>
+            </div>
+
+            
           </div>
         </div>
       </div>

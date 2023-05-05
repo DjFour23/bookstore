@@ -6,10 +6,12 @@ import "./HomeAdmin.css";
 import { useNavigate } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+/* import { useState } from "react"; */
 // Admin view
 export function HomeAdmin() {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+  /* const [message, setMessage] = useState(""); */
 
   // Log out - Admin
   const handleLogout = async () => {
