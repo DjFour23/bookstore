@@ -64,18 +64,18 @@ const contactUs = () => {
               <div class="row d-flex justify-content-center">                
                 <div class="col m-2">
                   <div class="container height-100 d-flex justify-content-center align-items-center">
-                    <div class="card text-center">
+                    <div class="card text-center rounded-pill">
                       <div class="py-4 p-2">
                         <div id="profileImg">
-                          <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAEVnW2B4QasCCiHD7PpFsebzeARoT_Isozg&usqp=CAU'} alt="imgProfileFb" />{" "}
+                          <img class="rounded-circle" src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAEVnW2B4QasCCiHD7PpFsebzeARoT_Isozg&usqp=CAU'} alt="cosa" />{" "}
                         </div>
-                        <div class="mt-3 d-flex flex-row justify-content-center">
-                          <h5>Don't click bellow</h5>{" "}
-                          <span class="facebook ms-2 d-flex flex-row justify-content-center "></span>
+                        <div class="mt-3 pt-3 pb-3 d-flex flex-row justify-content-center">
+                          <i className="fa-xl"> Don't click bellow </i>
+                          <span class="ms-2 d-flex flex-row justify-content-center "></span>
                         </div>
                         <div class="mt-3">
                           <a
-                            class="btn btn-dark"
+                            class="btn btn-dark rounded-pill"
                             target="_blank"
                             rel="noreferrer"
                             href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
