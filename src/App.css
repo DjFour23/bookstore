@@ -178,4 +178,23 @@ th {
   justify-content: center;
   width: 100%;
 
+
+}
+
+.costado1{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  border: 1px solid black;
+  
+}
+
+.texto1{
+  width: 50%;
+  display: flex;
+  
+}
+.boton1{
+  width: 50%;
 }

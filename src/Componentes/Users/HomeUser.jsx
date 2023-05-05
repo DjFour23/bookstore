@@ -1,5 +1,5 @@
-import { useAuth } from "../../Context/authContext";
 import * as React from "react";
+import { useAuth } from "../../Context/authContext";
 import { getLibros, mensaje } from "./../../Firebase/Api/api";
 import { useState } from "react";
 import { useChat } from "../Chat/useChat";
@@ -8,9 +8,9 @@ import swal from "sweetalert";
 
 // User view
 export function HomeUser() {
+  const { chat } = useChat();
   const { logout, user } = useAuth();
   const [message, setMessage] = useState("");
-  const { chat } = useChat();
 
   const sendMessage = async (e) => {
     try {
@@ -29,9 +29,7 @@ export function HomeUser() {
         icon: "error",
       });
     }
-
-
-
+    
   }
 
 
