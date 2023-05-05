@@ -30,16 +30,19 @@ export function HomeUser() {
     getLinks();
   }, []);
 
-  // const [searchResults, setSearchResults] = React.useState([]);
-  // const [searchTerm, setSearchTerm] = React.useState("");
+  // Manejar el estado de los checkboxes
+  const [checkboxState, setCheckboxState] = React.useState(
+    JSON.parse(localStorage.getItem("checkboxes")) || {}
+  );
 
-  // const handleSearch = () => {
-  //   // Aquí implementa la lógica de búsqueda
-  //   const results = [
-  //     /* Resultados de búsqueda */
-  //   ];
-  //   setSearchResults(results);
-  // };
+  const handleCheckboxChange = (event, itemId) => {
+    const newState = {
+      ...checkboxState,
+      [itemId]: event.target.checked,
+    };
+    setCheckboxState(newState);
+    localStorage.setItem("checkboxes", JSON.stringify(newState));
+  };
 
   // HTML - User view
   return (
@@ -102,7 +105,23 @@ export function HomeUser() {
                                 <p className="card-text lead mb-4 fw-semibold">
                                   <h5 class="card-title">{item.nombre}</h5>
                                   <label class="fancy-checkbox">
-                                    <input type="checkbox" />
+                                    <input
+                                      type="checkbox"
+                                      checked={
+                                        localStorage.getItem(
+                                          `${item.nombre}-${id}`
+                                        ) === "true"
+                                          ? true
+                                          : false
+                                      }
+                                      onChange={(e) => {
+                                        localStorage.setItem(
+                                          `${item.nombre}-${id}`,
+                                          e.target.checked
+                                        );
+                                        handleCheckboxChange(e, id)
+                                      }}
+                                    />
                                     <i
                                       class="fa-solid fa-star checked fa-lg"
                                       style={{ color: "#eeff00" }}
@@ -115,27 +134,17 @@ export function HomeUser() {
                                 </p>
                               </div>
                             </div>
-
-                            {/* <p class="card-text">
-                        {item.descripcion}
-                      </p> */}
-                            {/* <small class="text-muted align-self-end">
-                        <i
-                          class="fa-sharp fa-solid fa-star fa-2xl"
-                          style={{ color: "#eeff00" }}
-                        ></i>
-                      </small> */}
                           </div>
                           <div class="card-footer">
                             <small>
-                                <span class="badge text-bg-success">
-                                  Prestar
-                                </span>
+                              <span class="badge text-bg-success">Prestar</span>
                             </small>
                           </div>
                         </div>
                       </div>
-                    ) :('')}
+                    ) : (
+                      ""
+                    )}
                   </>
                 ))}
               </div>
