@@ -28,7 +28,7 @@ class navBar extends Component {
                     aria-current="page"
                     href="#aboutIt"
                   >
-                    how it works
+                    How it works
                   </a>
                 </li>
                 <li className="nav-item">
@@ -38,7 +38,7 @@ class navBar extends Component {
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#contactUs">
-                    Contactenos
+                  Contact Us
                   </a>
                 </li>
               </ul>
