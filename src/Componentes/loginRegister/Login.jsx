@@ -2,98 +2,84 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./../../Context/authContext";
 import { auth } from "./../../Firebase/config";
-import swal from 'sweetalert'
-import "../../index.css"
+import "./login.css";
+
 
 export function Login() {
 
   // Initialize User
   const [usuario, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
   });
-
   // Methods AuthContext
-  const { login, role } = useAuth();
+  const { login, role, validate } = useAuth();
 
   // Initialize navigate
   const navigate = useNavigate();
 
   // Form
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
-      if (usuario.email === "" && usuario.password === "") return swal({
-        title: "Error",
-        text: `Complete the form`,
-        icon: "error"
-      });
-      if (usuario.email === "") return swal({
-        title: "Error",
-        text: `Type an email`,
-        icon: "error"
-      });
-      if (usuario.password === "") return swal({
-        title: "Error",
-        text: `Type a password`,
-        icon: "error"
-      });
       // Login (firebase)
       await login(usuario.email, usuario.password);
       const user = auth.currentUser;
       // Query user's rol
       // admin 1
       // user 2
-      const rol = await role(user)
+      const rol = await role(user);
       rol === 1 ? navigate("/HomeAdmin") : navigate("/HomeUser");
-
-  } catch (error) {
-    swal({
-      title: "Authentication Error",
-      text: `Oops`,
-      icon: "error"
-    });
+    } catch (error) {
+      return validate(error.code)
+    }
   }
-};
-
-// Configure user and capture the data in the form
-const handleChange = ({ target: { value, name } }) =>
-  setUser({ ...usuario, [name]: value });
 
 
-
-// HTML Login form
-return (
-  <div className="Container-Todo">
-  <div className="login-container">
-    <div className="card">
-      <h5 className="card-title text-center mt-3">Login</h5>
-      <div className="card-body">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label className="form-label" htmlFor="form2Example1">
-              Email address
-            </label>
-            <input type="email" name="email" id="email" onChange={handleChange} className="form-control" placeholder="example@domain.com" />
-          </div>
-          <div className="mb-3">
-            <label className="form-label" htmlFor="form2Example2">
-              Password
-            </label>
-            <input type="password" name="password" id="password" onChange={handleChange} className="form-control" placeholder="*************" />
-          </div>
-          <div className="button">
-            <button type="submit" className="btn btn-success">Log in</button>
-          </div>
-          <div className="text-center">
-            Not a member? <Link to="/signUp">Register</Link>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  </div>
-);
+  // HTML Login form
+  return (
+    <>
+      <main className="contentForm container">
+        <h2 style={{ marginBottom: '20px' }}>Login</h2>
+        <div className="boxForm">
+          <form >
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                className="form-control"
+                onChange={({ target }) => {
+                  setUser((data) => ({ ...data, email: target.value }));
+                }}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                className="form-control"
+                onChange={({ target }) => {
+                  setUser((data) => ({ ...data, password: target.value }));
+                }}
+              />
+            </div>
+            <div className="buttonsForm">
+              <div className="LinksForms">
+                <Link to={"/signUp"}>Sign up</Link>
+              </div>
+              <button type="button" className="btn btn-primary" onClick={() => handleSubmit()} >
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </>
+  );
 }
 
 export default Login;
