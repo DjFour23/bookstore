@@ -1,24 +1,37 @@
 import { useAuth } from "../../Context/authContext";
 import * as React from "react";
-import { getLibros } from "./../../Firebase/Api/api";
+import { getLibros, mensaje } from "./../../Firebase/Api/api";
 import { useState } from "react";
 import { useChat } from "../Chat/useChat";
-import {db} from "./../../Firebase/config"
-import { collection } from "firebase/firestore";
+import { auth } from "./../../Firebase/config";
+import swal from "sweetalert";
 
 // User view
 export function HomeUser() {
   const { logout, user } = useAuth();
   const [message, setMessage] = useState("");
-  const { chat} = useChat();
+  const { chat } = useChat();
 
-  const sendMessage = (e)=> {
-    e.preventDefault();
+  const sendMessage = async (e) => {
+    try {
+      e.preventDefault();
+      const user = auth.currentUser;
+      mensaje(message, user.uid, user)
+      swal({
+        title: "OK",
+        text: `mensaje enviado`,
+        icon: "succes",
+      });
+    } catch (error) {
+      swal({
+        title: "Error",
+        text: `Try again`,
+        icon: "error",
+      });
+    }
 
-    collection(db, 'chat').add({
-      timestamp: Date.now(),
-      message
-    });
+
+
   }
 
 
@@ -171,15 +184,15 @@ export function HomeUser() {
 
             <div className="costado">
               <form>
-              <input type="text" value={message} placeholder="Escribir Mensaje" onChange={(e)=>setMessage(e.target.value)}/>
-              <button type="submit" onClick={sendMessage}>Enviar</button>
+                <input type="text" value={message} placeholder="Escribir Mensaje" onChange={(e) => setMessage(e.target.value)} />
+                <button type="submit" onClick={sendMessage}>Enviar</button>
               </form>
               <ul>
-                {chat.map(m=> <p key={m.id}>{m.message}</p>)}
+                {chat.map(m => <p key={m.id}>{m.message}</p>)}
               </ul>
             </div>
 
-            
+
           </div>
         </div>
       </div>

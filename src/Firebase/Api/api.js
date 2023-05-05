@@ -9,7 +9,8 @@ import {
 } from "firebase/firestore"
 import { db } from "./../config"
 
-const collectionName = 'libros';
+const collectionBook = 'libros';
+const collectionChat = 'chat';
 // validar url
 export const validURL = async (url) => {
   var pattern = new RegExp(
@@ -40,15 +41,15 @@ export const validado = async (nombre, autor, descripcion, genero, year, disponi
   return response
 }
 // Obtener libros
-export const getLibros = async () => await getDocs(collection(db, collectionName));
+export const getLibros = async () => await getDocs(collection(db, collectionBook));
 // Obtener un libro
-export const getLibro = (id) => getDoc(doc(db, collectionName, id));
+export const getLibro = (id) => getDoc(doc(db, collectionBook, id));
 // Eliminar un libro
-export const deleteLibro = async (id) => await deleteDoc(doc(db, collectionName, id));
+export const deleteLibro = async (id) => await deleteDoc(doc(db, collectionBook, id));
 // Guardar un libro
 export const saveLibro = async (nombre, autor, descripcion, genero, year, disponible, caratula) => {
 
-  await addDoc(collection(db, collectionName), {
+  await addDoc(collection(db, collectionBook), {
     nombre: nombre,
     autor: autor,
     descripcion: descripcion,
@@ -61,7 +62,7 @@ export const saveLibro = async (nombre, autor, descripcion, genero, year, dispon
 
 // Actualizar libro
 export const updateLibro = async (id, nombre, autor, descripcion, genero, year, disponible, caratula) =>
-  await updateDoc(doc(db, collectionName, id), {
+  await updateDoc(doc(db, collectionBook, id), {
     nombre: nombre,
     autor: autor,
     descripcion: descripcion,
@@ -86,5 +87,24 @@ export const registerOk = async (nombre,apellido,email,password,role) => {
   }
 
   return response
+}
+
+// Query: User's info
+export const info = async (usuario) => {
+  const docRef = doc(db, `usuarios/${usuario.uid}`)
+  const query = await getDoc(docRef)
+  const info =  query.data()
+  return info
+
+}
+// Enviar mensaje
+export const mensaje = async (mensaje,id,usuario) => {
+  const usuarioInfo = await info(usuario)
+  await addDoc(collection(db, collectionChat), {
+    usuario_id: id,
+    nombre: usuarioInfo.name,
+    mensaje,
+    timestamp: Date.now(),
+  });
 }
 
