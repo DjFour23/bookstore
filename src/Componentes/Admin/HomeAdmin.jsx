@@ -77,7 +77,7 @@ export function HomeAdmin() {
           </h2>
           <div style={{display: "flex"}} className="buttonsHeaderAdmin">
             <button
-              className="btn btn-primary"
+              className="btn btn-primary" onClick={() => navigate("/HomeAdmin/chatAdmin")}
             >
               Chat
             </button>
