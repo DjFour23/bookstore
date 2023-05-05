@@ -71,7 +71,7 @@ export function HomeAdmin() {
           <div className="contentCardsLibros">
             <article
               className="LibroAdmin NewLibroAdmin"
-              onClick={() => navigate("/HomeAdmin/Libros")}
+              onClick={() => navigate("/HomeAdmin/NewLibro")}
             >
               <h1 style={{ fontSize: "100px", opacity: ".5" }}>+</h1>
             </article>
@@ -84,11 +84,12 @@ export function HomeAdmin() {
                   backgroundSize: "cover",
                 }}
               >
-                <h2 style={{ color: "#000", fontWeight: "600" }}>
+                <h2 style={{ color: "#000", fontWeight: "1000" }}>
                   {item.nombre}
                 </h2>
                 <div className="ActionsLibros">
-                  <button className="btn btn-warning">
+                  <button className="btn btn-warning" 
+                  onClick={() => navigate(`UpdateLibro/${item.id}`)}>
                     <FaEdit fontSize={"25px"} />
                   </button>
                   <button
