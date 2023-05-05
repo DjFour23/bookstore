@@ -57,7 +57,7 @@ function NewLibro() {
     <>
       <main className="contentForm container">
         <h2 style={{ marginBottom: "20px" }}>Create book</h2>
-        <div className="boxForm">
+        <div className="boxForm" style={{width: "100%", maxWidth: "500px"}}>
           <form>
             <div className="form-group">
               <label htmlFor="title">Title:</label>
@@ -90,6 +90,7 @@ function NewLibro() {
                 name="descripcion"
                 id="descripcion"
                 className="form-control"
+                rows="5"
                 onChange={({ target }) => {
                   setlibro((data) => ({ ...data, descripcion: target.value }));
                 }}
