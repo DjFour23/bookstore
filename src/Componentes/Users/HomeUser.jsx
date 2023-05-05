@@ -92,52 +92,50 @@ export function HomeUser() {
               <div class="card-group">
                 {libros.map((item, id) => (
                   <>
-                    <div className="col-lg-3 col-md-2 col-sm-1 col-xs-1 mb-2 p-2 ">
-                      <div className="card shadow-sm mt-4 p-1">
-                        <img class="card-img" src={item.caratula} alt="..." />
-                        <div class="card-img-overlay">
-                          <div className="card text-center  border-info  text-bg-dark ">
-                            <div className="card-body">
-                              <p className="card-text lead mb-4 fw-semibold">
-                                <h5 class="card-title">{item.nombre}</h5>
-                                <label class="fancy-checkbox">
-                                  <input type="checkbox" />
-                                  <i
-                                    class="fa-solid fa-star checked fa-lg"
-                                    style={{ color: "#eeff00" }}
-                                  ></i>
-                                  <i
-                                    class="fa-regular fa-star unchecked fa-lg"
-                                    style={{ color: "#eeff00" }}
-                                  ></i>
-                                </label>
-                              </p>
+                    {item.disponible ? (
+                      <div className="col-lg-3 col-md-2 col-sm-1 col-xs-1 mb-2 p-2 ">
+                        <div className="card shadow-sm mt-4 p-1">
+                          <img class="card-img" src={item.caratula} alt="..." />
+                          <div class="card-img-overlay">
+                            <div className="card text-center  border-info  text-bg-dark ">
+                              <div className="card-body">
+                                <p className="card-text lead mb-4 fw-semibold">
+                                  <h5 class="card-title">{item.nombre}</h5>
+                                  <label class="fancy-checkbox">
+                                    <input type="checkbox" />
+                                    <i
+                                      class="fa-solid fa-star checked fa-lg"
+                                      style={{ color: "#eeff00" }}
+                                    ></i>
+                                    <i
+                                      class="fa-regular fa-star unchecked fa-lg"
+                                      style={{ color: "#eeff00" }}
+                                    ></i>
+                                  </label>
+                                </p>
+                              </div>
                             </div>
-                          </div>
 
-                          {/* <p class="card-text">
+                            {/* <p class="card-text">
                         {item.descripcion}
                       </p> */}
-                          {/* <small class="text-muted align-self-end">
+                            {/* <small class="text-muted align-self-end">
                         <i
                           class="fa-sharp fa-solid fa-star fa-2xl"
                           style={{ color: "#eeff00" }}
                         ></i>
                       </small> */}
-                        </div>
-                        <div class="card-footer">
-                          <small>
-                            {item.disponible ? (
-                              <span class="badge text-bg-success">Prestar</span>
-                            ) : (
-                              <span class="badge text-bg-danger">
-                                Prestado :c
-                              </span>
-                            )}
-                          </small>
+                          </div>
+                          <div class="card-footer">
+                            <small>
+                                <span class="badge text-bg-success">
+                                  Prestar
+                                </span>
+                            </small>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    ) :('')}
                   </>
                 ))}
               </div>
