@@ -122,53 +122,45 @@ export function HomeUser() {
               <div className="card-group">
                 {libros.map((item, id) => (
                   <>
-                    <div
-                      className="col-lg-3 col-md-2 col-sm-1 col-xs-1 mb-2 p-2 " /* key={item.id} */
-                    >
+                    <div className="col-lg-3 col-md-2 col-sm-1 col-xs-1 mb-2 p-2 ">
                       <div className="card shadow-sm mt-4 p-1">
-                        <img
-                          className="card-img"
-                          src={item.caratula}
-                          alt="..."
-                        />
-                        <div className="card-img-overlay">
+                        <img class="card-img" src={item.caratula} alt="..." />
+                        <div class="card-img-overlay">
                           <div className="card text-center  border-info  text-bg-dark ">
                             <div className="card-body">
-                              <div className="card-text lead mb-4 fw-semibold">
-                                <h5 className="card-title">{item.nombre}</h5>
-                                <label className="fancy-checkbox">
+                              <p className="card-text lead mb-4 fw-semibold">
+                                <h5 class="card-title">{item.nombre}</h5>
+                                <label class="fancy-checkbox">
                                   <input type="checkbox" />
                                   <i
-                                    className="fa-solid fa-star checked fa-lg"
+                                    class="fa-solid fa-star checked fa-lg"
                                     style={{ color: "#eeff00" }}
                                   ></i>
                                   <i
-                                    className="fa-regular fa-star unchecked fa-lg"
+                                    class="fa-regular fa-star unchecked fa-lg"
                                     style={{ color: "#eeff00" }}
                                   ></i>
                                 </label>
-                              </div>
+                              </p>
                             </div>
                           </div>
 
-                          {/* <p class="card-text">
+                            {/* <p class="card-text">
                         {item.descripcion}
                       </p> */}
-                          {/* <small class="text-muted align-self-end">
+                            {/* <small class="text-muted align-self-end">
                         <i
                         class="fa-sharp fa-solid fa-star fa-2xl"
                           style={{ color: "#eeff00" }}
-                          ></i>
-                        </small> */}
+                        ></i>
+                      </small> */}
                         </div>
-                        <div className="card-footer">
+                        <div class="card-footer">
                           <small>
                             {item.disponible ? (
-                              <span className="badge text-bg-success">
-                                Prestar
-                              </span>
+                              <span class="badge text-bg-success">Prestar</span>
                             ) : (
-                              <span className="badge text-bg-danger">
+                              <span class="badge text-bg-danger">
                                 Prestado :c
                               </span>
                             )}

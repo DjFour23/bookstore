@@ -4,9 +4,7 @@ import { useAuth } from "./../../Context/authContext";
 import { auth } from "./../../Firebase/config";
 import "./login.css";
 
-
 export function Login() {
-
   // Initialize User
   const [usuario, setUser] = useState({
     email: "",
@@ -31,18 +29,17 @@ export function Login() {
       const rol = await role(user);
       rol === 1 ? navigate("/HomeAdmin") : navigate("/HomeUser");
     } catch (error) {
-      return validate(error.code)
+      return validate(error.code);
     }
-  }
-
+  };
 
   // HTML Login form
   return (
     <>
       <main className="contentForm container">
-        <h2 style={{ marginBottom: '20px' }}>Login</h2>
+        <h2 style={{ marginBottom: "20px" }}>Login</h2>
         <div className="boxForm">
-          <form >
+          <form>
             <div className="form-group">
               <label htmlFor="email">Email:</label>
               <input
@@ -69,11 +66,18 @@ export function Login() {
             </div>
             <div className="buttonsForm">
               <div className="LinksForms">
-                <Link to={"/signUp"}>Sign up</Link>
+                <Link to={"/"}>Back</Link>
               </div>
-              <button type="button" className="btn btn-primary" onClick={() => handleSubmit()} >
-                Send
-              </button>
+              <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
+                <Link to={"/signUp"}>Sign up</Link>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => handleSubmit()}
+                >
+                  Send
+                </button>
+              </div>
             </div>
           </form>
         </div>
