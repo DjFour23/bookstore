@@ -30,8 +30,6 @@ export function HomeUser() {
     getLinks();
   }, []);
 
-
-
   const [searchResults, setSearchResults] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState("");
 
@@ -101,11 +99,22 @@ export function HomeUser() {
                           <div className="card text-center  border-info  text-bg-dark ">
                             <div className="card-body">
                               <p className="card-text lead mb-4 fw-semibold">
-                              <h5 class="card-title">{item.nombre}</h5>
+                                <h5 class="card-title">{item.nombre}</h5>
+                                <label class="fancy-checkbox">
+                                  <input type="checkbox" />
+                                  <i
+                                    class="fa-solid fa-star checked fa-lg"
+                                    style={{ color: "#eeff00" }}
+                                  ></i>
+                                  <i
+                                    class="fa-regular fa-star unchecked fa-lg"
+                                    style={{ color: "#eeff00" }}
+                                  ></i>
+                                </label>
                               </p>
                             </div>
                           </div>
-                          
+
                           {/* <p class="card-text">
                         {item.descripcion}
                       </p> */}
@@ -118,7 +127,13 @@ export function HomeUser() {
                         </div>
                         <div class="card-footer">
                           <small>
-                            {item.disponible ? "Disponible" : "Rentado"}
+                            {item.disponible ? (
+                              <span class="badge text-bg-success">Prestar</span>
+                            ) : (
+                              <span class="badge text-bg-danger">
+                                Prestado :c
+                              </span>
+                            )}
                           </small>
                         </div>
                       </div>
