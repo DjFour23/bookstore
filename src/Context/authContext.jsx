@@ -6,7 +6,8 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth, db } from "./../Firebase/config";
-import { doc, getDoc, setDoc, query, where, collection, getDocs } from 'firebase/firestore'
+import { doc, getDoc, setDoc} from 'firebase/firestore'
+import swal from "sweetalert";
 
 
 const authContext = createContext();
@@ -30,13 +31,13 @@ export function AuthProvider({ children }) {
     // search an user by his uid
     const docRef = doc(db, `usuarios/${info_usuario.user.uid}`)
     // Creating a firebase's document with the user's information
-    await setDoc(docRef, { name: name, lastname: lastname, email: email, password: password, role: parseInt(role) })
+    await setDoc(docRef, { name: name, lastname: lastname, email: email, password: password, role: parseInt(role),libros:[] })
   };
 
   // firebase's login
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
-  };
+  }
 
   // Query: User's role
   const role = async (usuario) => {
@@ -46,13 +47,7 @@ export function AuthProvider({ children }) {
     return role
 
   }
-  // Query: is That email exist?
-  const emailValidator = async (email) => {
-    const docRef = collection(db, `usuarios`)
-    const q = query(docRef, where("email", "==", `${email}`))
-    const isEmpty = (await getDocs(q)).empty;
-    return isEmpty
-  }
+  
 
   // Firebase's sign Out
   const logout = () => {
@@ -60,6 +55,51 @@ export function AuthProvider({ children }) {
       signOut(auth);
     } catch (error) {
       console.log(error.message)
+    }
+  }
+
+  const validate = (code) => {
+    if(code === "auth/user-not-found"){
+      return swal({
+        title: `${code}`,
+        text: `This email is not registered, what if you create an account?`,
+        icon: "error",
+      });
+    }
+    if(code === "auth/wrong-password"){
+      return swal({
+        title: `${code}`,
+        text: `Incorrect password`,
+        icon: "error",
+      });
+    }
+    if(code === "auth/weak-password"){
+      return swal({
+        title: `${code}`,
+        text: `Your password must have 6 characters`,
+        icon: "error",
+      });
+    }
+    if(code === "auth/invalid-email"){
+      return swal({
+        title: `${code}`,
+        text: `Please enter an email`,
+        icon: "error",
+      });
+    }
+    if(code === "auth/missing-password"){
+      return swal({
+        title: `${code}`,
+        text: `Please enter a password`,
+        icon: "error",
+      });
+    }
+    if(code === "auth/email-already-in-use"){
+      return swal({
+        title: `${code}`,
+        text: `The email entered is already registered`,
+        icon: "error",
+      });
     }
   }
 
@@ -81,7 +121,7 @@ export function AuthProvider({ children }) {
         logout,
         loading,
         role,
-        emailValidator
+        validate
       }}
     >
       {children}

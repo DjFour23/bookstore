@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/authContext";
+import { registerOk } from "../../Firebase/Api/api";
 import swal from "sweetalert";
 import "../../index.css";
 /* import { CircularProgress } from "@mui/joy"; */
 
 export function Register() {
   // Calling methods in Auth Context
-  const { signup, emailValidator } = useAuth();
+  const { signup, validate } = useAuth();
 
   // Initializing user states
   const [usuario, setUsuario] = useState({
@@ -22,164 +23,107 @@ export function Register() {
 
   // Capturing data in registration form
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    console.log(usuario)
     try {
-      if (
-        usuario.name === "" &&
-        usuario.lastname === "" &&
-        usuario.email === "" &&
-        usuario.password === ""
-      )
-        return swal({
-          title: "Error",
-          text: `Complete the form`,
-          icon: "error",
-        });
-      if (usuario.name === "")
-        return swal({
-          title: "Error",
-          text: `Type your name`,
-          icon: "error",
-        });
-
-      if (usuario.lastname === "")
-        return swal({
-          title: "Error",
-          text: `Type your last name`,
-          icon: "error",
-        });
-      if (usuario.email === "")
-        return swal({
-          title: "Error",
-          text: `Type your email`,
-          icon: "error",
-        });
-      const response = await emailValidator(usuario.email);
-      if (response === false)
-        return swal({
-          title: "Email already exists",
-          text: `Type another email ...`,
-          icon: "error",
-        });
-      if (usuario.password === "")
-        return swal({
-          title: "Error",
-          text: `Type your password`,
-          icon: "error",
-        });
-      if (usuario.password.length < 6)
-        return swal({
-          title: "Error",
-          text: `Your password must have 6 characters`,
-          icon: "error",
-        });
-      if (usuario.role === "0")
-        return swal({
-          title: "Error",
-          text: `Please select a role`,
-          icon: "error",
-        });
-      await signup(
+      const respuesta = await registerOk(
         usuario.name,
         usuario.lastname,
         usuario.email,
         usuario.password,
-        usuario.role
-      );
-     /*  setLoading(true); */
-      swal({
-        title: "Registration completed",
-        text: `Nice, welcome to bookstore!!!`,
-        icon: "success",
-      });
-      navigate("/login");
+        usuario.role)
+      if (respuesta.correcto === true) {
+        await signup(
+          usuario.name,
+          usuario.lastname,
+          usuario.email,
+          usuario.password,
+          usuario.role
+        );
+        /*  setLoading(true); */
+        swal({
+          title: "Registration completed",
+          text: `Nice, welcome to bookstore!!!`,
+          icon: "success",
+        });
+        navigate("/login");
+      } else {
+        swal({
+          title: "Incomplete form",
+          text: ` The ${respuesta.campo} field is empty`,
+          icon: "error"
+        });
+      }
     } catch (error) {
-      swal({
-        title: "Registration error",
-        text: `Try again`,
-        icon: "error",
-      });
+      return validate(error.code)
     }
   };
 
   // HTML- Registration Form
   return (
-    <div className="Container-Todo">
-    <div className="login-container">
-      <div className="card">
-        <h5 className="card-title text-center mt-3">Sign up</h5>
-        <div className="card-body">
-          <form onSubmit={handleSubmit}>
-            <div className="mb-0">
-              <label className="form-label" htmlFor="name">
-                Name
-              </label>
+    <>
+      <main className="contentForm container">
+        <h2 style={{ marginBottom: "20px" }}>Sign Up</h2>
+        <div className="boxForm">
+          <form>
+            <div className="form-group">
+              <label htmlFor="name">Name:</label>
               <input
                 type="text"
                 name="name"
                 id="name"
-                onChange={(e) =>
-                  setUsuario({ ...usuario, name: e.target.value })
-                }
                 className="form-control"
-                placeholder="Example: Pepito"
+                onChange={({ target }) => {
+                  setUsuario((data) => ({ ...data, name: target.value }));
+                }}
               />
             </div>
-            <div className="mb-0">
-              <label className="form-label" htmlFor="lastname">
-                Last Name
-              </label>
+            <div className="form-group">
+              <label htmlFor="lastName">Last name:</label>
               <input
                 type="text"
                 name="lastname"
-                id="lastname"
-                onChange={(e) =>
-                  setUsuario({ ...usuario, lastname: e.target.value })
-                }
+                id="lastName"
                 className="form-control"
-                placeholder="Example: Perez"
+                onChange={({ target }) => {
+                  setUsuario((data) => ({ ...data, lastname: target.value }));
+                }}
               />
             </div>
-            <div className="mb-0">
-              <label className="form-label" htmlFor="email">
-                Email address
-              </label>
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
               <input
                 type="email"
                 name="email"
                 id="email"
-                onChange={(e) =>
-                  setUsuario({ ...usuario, email: e.target.value })
-                }
                 className="form-control"
-                placeholder="example@domain.com"
+                onChange={({ target }) => {
+                  setUsuario((data) => ({ ...data, email: target.value }));
+                }}
               />
             </div>
-            <div className="mb-0">
-              <label className="form-label" htmlFor="password">
-                Password
-              </label>
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
               <input
                 type="password"
                 name="password"
                 id="password"
-                onChange={(e) =>
-                  setUsuario({ ...usuario, password: e.target.value })
-                }
                 className="form-control"
-                placeholder="*************"
+                onChange={({ target }) => {
+                  setUsuario((data) => ({ ...data, password: target.value }));
+                }}
               />
             </div>
-            <div className=" mb-0">
-              <label className="form-label" htmlFor="role">
+            <div className="form-group">
+              <label htmlFor="role">
                 Role
               </label>
               <select
                 className="form-select"
                 aria-label="Default select example"
                 id="role"
-                onChange={(e) =>
-                  setUsuario({ ...usuario, role: e.target.value })
+                onChange={({ target }) =>
+                  setUsuario({ ...usuario, role: target.value })
                 }
               >
                 <option defaultChecked value="0">
@@ -189,20 +133,22 @@ export function Register() {
                 <option value="2">User</option>
               </select>
             </div>
-            <div className="button">
-              <button type="submit" className="btn btn-success">
-                {/* {loading ? <CircularProgress /> : <>Sign up</>} */}
-                Sign up
+            <div className="buttonsForm">
+              <div className="LinksForms">
+                <Link to={"/login"}>Sign in</Link>
+              </div>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => handleSubmit()}
+              >
+                Send
               </button>
-            </div>
-            <div className="text-center">
-              Already have an Account? <Link to="/login">Login</Link>
             </div>
           </form>
         </div>
-      </div>
-    </div>
-    </div>
+      </main>
+    </>
   );
 }
 
