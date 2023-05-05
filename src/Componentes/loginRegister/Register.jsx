@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/authContext";
+import { registerOk } from "../../Firebase/Api/api";
 import swal from "sweetalert";
 import "../../index.css";
 /* import { CircularProgress } from "@mui/joy"; */
@@ -25,13 +26,13 @@ export function Register() {
     // e.preventDefault();
     console.log(usuario)
     try {
-      if (usuario.role === "0") {
-        return swal({
-          title: "Error",
-          text: `Please select a role`,
-          icon: "error",
-        });
-      } else {
+      const respuesta = await registerOk(
+        usuario.name,
+        usuario.lastname,
+        usuario.email,
+        usuario.password,
+        usuario.role)
+      if (respuesta.correcto === true) {
         await signup(
           usuario.name,
           usuario.lastname,
@@ -46,6 +47,12 @@ export function Register() {
           icon: "success",
         });
         navigate("/login");
+      } else {
+        swal({
+          title: "Incomplete form",
+          text: ` The ${respuesta.campo} field is empty`,
+          icon: "error"
+        });
       }
     } catch (error) {
       return validate(error.code)
