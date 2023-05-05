@@ -35,7 +35,7 @@ function UpdateLibro() {
         if (urlOk) {
           await updateLibro(params.id, libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula);
           swal({
-            title: "Updated book",
+            title: "The book has been updated",
             icon: "success",
           });
           navigate('/HomeAdmin')

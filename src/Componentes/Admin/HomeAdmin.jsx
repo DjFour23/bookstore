@@ -31,11 +31,11 @@ export function HomeAdmin() {
   };
 
   // Eliminar un libro
-  const onDelete = async (id) => {
+  const onDelete = async (id,nombre) => {
     try {
       let confirm = await swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        title: `Are you sure you want to delete the book "${nombre}" ?`,
+        text: "Once deleted, you will not be able to recover this book!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -46,7 +46,7 @@ export function HomeAdmin() {
         await deleteLibro(id);
         getLinks();
         swal({
-          title: "Libro eliminado",
+          title: "The book has been removed",
           icon: "success",
         });
       }
@@ -118,7 +118,7 @@ export function HomeAdmin() {
                     className="btn btn-danger"
                     onClick={(e) => {
                       e.stopPropagation();
-                      onDelete(item.id);
+                      onDelete(item.id,item.nombre);
                     }}
                   >
                     <MdDelete fontSize={"29px"} />
