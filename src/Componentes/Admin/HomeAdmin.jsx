@@ -29,15 +29,27 @@ export function HomeAdmin() {
     });
     setLibros(docs);
   };
+
   // Eliminar un libro
-  const onDelete = async (id) => {
+  const onDelete = async (id,nombre) => {
     try {
-      await deleteLibro(id);
-      getLinks();
-      swal({
-        title: "Libro eliminado",
-        icon: "success",
+      let confirm = await swal({
+        title: `Are you sure you want to delete the book "${nombre}" ?`,
+        text: "Once deleted, you will not be able to recover this book!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        return willDelete;
       });
+      if (confirm) {
+        await deleteLibro(id);
+        getLinks();
+        swal({
+          title: "The book has been removed",
+          icon: "success",
+        });
+      }
     } catch (error) {
       swal({
         title: "Error",
@@ -52,20 +64,28 @@ export function HomeAdmin() {
     getLinks();
   }, []);
 
-
-
   // HTML - Admin view
   return (
     <>
       <main className="container contentHomeAdmin">
         <header className="HeaderAdmin">
-          <h2 style={{ margin: "0", maxWidth: "300px" }}>
+          <h2 style={{ margin: "0", maxWidth: "300px", fontSize: "20px" }}>
             Welcome Admin:{" "}
             <span style={{ fontSize: "18px" }}>{user.email}</span>{" "}
           </h2>
-          <button className="btn btn-secondary" onClick={() => handleLogout()}>
-            Logout
-          </button>
+          <div style={{display: "flex"}} className="buttonsHeaderAdmin">
+            <button
+              className="btn btn-primary"
+            >
+              Chat
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => handleLogout()}
+            >
+              Logout
+            </button>
+          </div>
         </header>
         <div className="LibrosAdmin">
           <div className="contentCardsLibros">
@@ -88,15 +108,17 @@ export function HomeAdmin() {
                   {item.nombre}
                 </h2>
                 <div className="ActionsLibros">
-                  <button className="btn btn-warning" 
-                  onClick={() => navigate(`UpdateLibro/${item.id}`)}>
+                  <button
+                    className="btn btn-warning"
+                    onClick={() => navigate(`UpdateLibro/${item.id}`)}
+                  >
                     <FaEdit fontSize={"25px"} />
                   </button>
                   <button
                     className="btn btn-danger"
                     onClick={(e) => {
                       e.stopPropagation();
-                      onDelete(item.id);
+                      onDelete(item.id,item.nombre);
                     }}
                   >
                     <MdDelete fontSize={"29px"} />

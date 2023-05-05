@@ -24,14 +24,15 @@ export function Register() {
   // Capturing data in registration form
   const handleSubmit = async (e) => {
     // e.preventDefault();
-    console.log(usuario)
+    console.log(usuario);
     try {
       const respuesta = await registerOk(
         usuario.name,
         usuario.lastname,
         usuario.email,
         usuario.password,
-        usuario.role)
+        usuario.role
+      );
       if (respuesta.correcto === true) {
         await signup(
           usuario.name,
@@ -51,11 +52,11 @@ export function Register() {
         swal({
           title: "Incomplete form",
           text: ` The ${respuesta.campo} field is empty`,
-          icon: "error"
+          icon: "error",
         });
       }
     } catch (error) {
-      return validate(error.code)
+      return validate(error.code);
     }
   };
 
@@ -115,9 +116,7 @@ export function Register() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="role">
-                Role
-              </label>
+              <label htmlFor="role">Role</label>
               <select
                 className="form-select"
                 aria-label="Default select example"
@@ -135,15 +134,20 @@ export function Register() {
             </div>
             <div className="buttonsForm">
               <div className="LinksForms">
-                <Link to={"/login"}>Sign in</Link>
+                <Link to={"/"}>Back</Link>
               </div>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => handleSubmit()}
+              <div
+                style={{ display: "flex", gap: "10px", alignItems: "center" }}
               >
-                Send
-              </button>
+                <Link to={"/login"}>Sign in</Link>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => handleSubmit()}
+                >
+                  Send
+                </button>
+              </div>
             </div>
           </form>
         </div>
