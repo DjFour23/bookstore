@@ -30,16 +30,16 @@ export function HomeUser() {
     getLinks();
   }, []);
 
-  const [searchResults, setSearchResults] = React.useState([]);
-  const [searchTerm, setSearchTerm] = React.useState("");
+  // const [searchResults, setSearchResults] = React.useState([]);
+  // const [searchTerm, setSearchTerm] = React.useState("");
 
-  const handleSearch = () => {
-    // Aquí implementa la lógica de búsqueda
-    const results = [
-      /* Resultados de búsqueda */
-    ];
-    setSearchResults(results);
-  };
+  // const handleSearch = () => {
+  //   // Aquí implementa la lógica de búsqueda
+  //   const results = [
+  //     /* Resultados de búsqueda */
+  //   ];
+  //   setSearchResults(results);
+  // };
 
   // HTML - User view
   return (
@@ -60,7 +60,7 @@ export function HomeUser() {
                 {/* {console.log(user)} */}
                 <h5 class="card-title">{user.displayName || user.email}</h5>
                 <br></br>
-                <a href="#" onClick={handleLogout} class="btn btn-danger">
+                <a href="/" onClick={handleLogout} class="btn btn-danger">
                   logout
                 </a>
               </div>
