@@ -1,21 +1,35 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { updateLibro, getLibro, validado, validURL } from "../../Firebase/Api/api";
+import {
+  updateLibro,
+  getLibro,
+  validado,
+  validURL,
+} from "../../Firebase/Api/api";
 import swal from "sweetalert";
 
 function UpdateLibro() {
-
   const [libro, setlibro] = React.useState({
     nombre: "",
     descripcion: "",
     autor: "",
-    disponible: "0",
-    year: "0",
+    disponible: false,
+    year: 0,
     genero: "",
-    caratula: ""
+    caratula: "",
   });
   const navigate = useNavigate();
   const params = useParams();
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setlibro({ ...libro, [name]: value });
+  };
+
+  const handleDisponibleChange = (event) => {
+    const { value } = event.target;
+    setlibro({ ...libro, disponible: value === "true" });
+  };
 
   // libro por id
   const getBookById = async (id) => {
@@ -29,39 +43,53 @@ function UpdateLibro() {
   // Update un libro
   const Update = async () => {
     try {
-      const respuesta = await validado(libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula)
+      const respuesta = await validado(
+        libro.nombre,
+        libro.autor,
+        libro.descripcion,
+        libro.genero,
+        libro.year,
+        libro.disponible,
+        libro.caratula
+      );
       if (respuesta.correcto === true) {
-        const urlOk = await validURL(libro.caratula)
+        const urlOk = await validURL(libro.caratula);
         if (urlOk) {
-          await updateLibro(params.id, libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula);
+          await updateLibro(
+            params.id,
+            libro.nombre,
+            libro.autor,
+            libro.descripcion,
+            libro.genero,
+            libro.year,
+            libro.disponible,
+            libro.caratula
+          );
           swal({
             title: "The book has been updated",
             icon: "success",
           });
-          navigate('/HomeAdmin')
+          navigate("/HomeAdmin");
         } else {
           swal({
             title: "Error",
             text: ` The url is invalid`,
-            icon: "error"
+            icon: "error",
           });
         }
       } else {
         swal({
           title: "Incomplete form",
           text: ` The ${respuesta.campo} field is empty`,
-          icon: "error"
+          icon: "error",
         });
       }
-
     } catch (error) {
       swal({
         title: `${error.message}`,
         text: `Try again`,
         icon: "error",
       });
-
-
     }
   };
 
@@ -73,7 +101,7 @@ function UpdateLibro() {
     <>
       <main className="contentForm container">
         <h2 style={{ marginBottom: "20px" }}>Update book</h2>
-        <div className="boxForm" style={{width: "100%", maxWidth: "500px"}}>
+        <div className="boxForm" style={{ width: "100%", maxWidth: "500px" }}>
           <form>
             <div className="form-group">
               <label htmlFor="title">Title:</label>
@@ -129,9 +157,7 @@ function UpdateLibro() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="genero">
-                Book type
-              </label>
+              <label htmlFor="genero">Book type</label>
               <select
                 className="form-select"
                 aria-label="Default select example"
@@ -146,21 +172,25 @@ function UpdateLibro() {
                 </option>
                 <option value="Children's books">Children's books</option>
                 <option value="Literature books">Literature books</option>
-                <option value="Consultation and reference books">Consultation and reference books</option>
-                <option value="Technical or specialized books">Technical or specialized books</option>
-                <option value="religious and sacred books">Religious and sacred books</option>
+                <option value="Consultation and reference books">
+                  Consultation and reference books
+                </option>
+                <option value="Technical or specialized books">
+                  Technical or specialized books
+                </option>
+                <option value="religious and sacred books">
+                  Religious and sacred books
+                </option>
                 <option value="Informative books">Informative books</option>
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="disponible">
-                Available
-              </label>
-              <select
+              <label htmlFor="disponible">Available</label>
+              {/* <select
                 className="form-select"
                 aria-label="Default select example"
                 id="disponible"
-                value={libro.disponible}
+                value={libro.disponible === "true"}
                 onChange={({ target }) =>
                   setlibro((data) => ({ ...data, disponible: target.value }))
                 }
@@ -170,6 +200,17 @@ function UpdateLibro() {
                 </option>
                 <option value="true">true</option>
                 <option value="false">false</option>
+              </select> */}
+
+              <select
+                className="form-select"
+                aria-label="Default select example"
+                id="disponible"
+                value={libro.disponible ? "true" : "false"}
+                onChange={handleDisponibleChange}
+              >
+                <option value="true">Sí</option>
+                <option value="false">No</option>
               </select>
             </div>
             <div className="form-group">
@@ -187,12 +228,16 @@ function UpdateLibro() {
             </div>
             <button
               type="button"
-              className="btn btn-success" onClick={() => Update()}>
+              className="btn btn-success"
+              onClick={() => Update()}
+            >
               Update
             </button>
             <button
               type="button"
-              className="btn btn-primary" onClick={() => navigate('/HomeAdmin')}>
+              className="btn btn-primary"
+              onClick={() => navigate("/HomeAdmin")}
+            >
               Back
             </button>
           </form>
