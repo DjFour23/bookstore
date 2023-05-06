@@ -6,10 +6,12 @@ import "./HomeAdmin.css";
 import { useNavigate } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+/* import { useState } from "react"; */
 // Admin view
 export function HomeAdmin() {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+  /* const [message, setMessage] = useState(""); */
 
   // Log out - Admin
   const handleLogout = async () => {
@@ -75,7 +77,7 @@ export function HomeAdmin() {
           </h2>
           <div style={{display: "flex"}} className="buttonsHeaderAdmin">
             <button
-              className="btn btn-primary"
+              className="btn btn-primary" onClick={() => navigate("/HomeAdmin/chatAdmin")}
             >
               Chat
             </button>
