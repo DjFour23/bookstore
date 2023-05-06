@@ -11,9 +11,8 @@ export const useChat = () => {
     const unsubscribe = onSnapshot(
       collection(db, "chat"),
       (snapshot) => {
-        const prueba = [snapshot];
         setLoading(false);
-        setChat(prueba.map((d) => ({ id: d?.query?.id })));
+        setChat(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
       },
 
       (err) => {
