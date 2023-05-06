@@ -1,38 +1,17 @@
 import * as React from "react";
 import { useAuth } from "../../Context/authContext";
-import { getLibros, mensaje } from "./../../Firebase/Api/api";
-import { useState } from "react";
-import { useChat } from "../Chat/useChat";
-import { auth } from "./../../Firebase/config";
-import swal from "sweetalert";
+import { getLibros } from "./../../Firebase/Api/api";
+import { useNavigate } from "react-router-dom";
+//import { useChat } from "../Chat/useChat";
+//import { auth } from "./../../Firebase/config";
+//import swal from "sweetalert";
 
 // User view
 export function HomeUser() {
-  const { chat } = useChat();
+
   const { logout, user } = useAuth();
-  const [message, setMessage] = useState("");
 
-  const sendMessage = async (e) => {
-    try {
-      e.preventDefault();
-      const user = auth.currentUser;
-      mensaje(message, user.uid, user)
-      swal({
-        title: "OK",
-        text: `mensaje enviado`,
-        icon: "succes",
-      });
-    } catch (error) {
-      swal({
-        title: "Error",
-        text: `Try again`,
-        icon: "error",
-      });
-    }
-    
-  }
-
-
+  const navigate = useNavigate();
   // Log out - User
   const handleLogout = async () => {
     try {
@@ -92,6 +71,13 @@ export function HomeUser() {
                   logout
                 </a>
               </div>
+              <div className="card-body">
+                <button
+                  className="btn btn-primary" onClick={() => navigate("/HomeUser/ChatUser")}
+                >
+                  Chat
+                </button>
+              </div>
             </div>
           </div>
           {/* <input
@@ -143,10 +129,10 @@ export function HomeUser() {
                             </div>
                           </div>
 
-                            {/* <p class="card-text">
+                          {/* <p class="card-text">
                         {item.descripcion}
                       </p> */}
-                            {/* <small class="text-muted align-self-end">
+                          {/* <small class="text-muted align-self-end">
                         <i
                         class="fa-sharp fa-solid fa-star fa-2xl"
                           style={{ color: "#eeff00" }}
@@ -170,19 +156,6 @@ export function HomeUser() {
                 ))}
               </div>
             </div>
-
-
-            <div className="costado">
-              <form>
-                <input type="text" value={message} placeholder="Escribir Mensaje" onChange={(e) => setMessage(e.target.value)} />
-                <button type="submit" onClick={sendMessage}>Enviar</button>
-              </form>
-              <ul>
-                {chat.map(m => <p key={m.id}>{m.message}</p>)}
-              </ul>
-            </div>
-
-
           </div>
         </div>
       </div>
