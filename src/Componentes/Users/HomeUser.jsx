@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 // User view
 export function HomeUser() {
-
   const { logout, user } = useAuth();
 
   const navigate = useNavigate();
@@ -21,6 +20,8 @@ export function HomeUser() {
     }
   };
   const [libros, setLibros] = React.useState([{}]);
+  const [librosOriginales, setLibrosOriginales] = React.useState([]);
+
   // obtener libros
   const getLinks = async () => {
     const querySnapshot = await getLibros();
@@ -29,13 +30,8 @@ export function HomeUser() {
       docs.push({ ...doc.data(), id: doc.id });
     });
     setLibros(docs);
-    /*  console.log(docs); */
+    setLibrosOriginales(docs);
   };
-
-  // cargar los libros
-  React.useEffect(() => {
-    getLinks();
-  }, []);
 
   // Manejar el estado de los checkboxes
   const [checkboxState, setCheckboxState] = React.useState(
@@ -49,6 +45,24 @@ export function HomeUser() {
     };
     setCheckboxState(newState);
     localStorage.setItem("checkboxes", JSON.stringify(newState));
+  };
+
+  // cargar los libros
+  React.useEffect(() => {
+    getLinks();
+  }, []);
+
+  const [searchTerm, setSearchTerm] = React.useState("");
+
+  const handleSearch = () => {
+    if (searchTerm === "") {
+      setLibros(librosOriginales);
+    } else {
+      const filteredLibros = librosOriginales.filter((libro) =>
+        libro.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setLibros(filteredLibros);
+    }
   };
 
   // HTML - User view
@@ -76,24 +90,15 @@ export function HomeUser() {
               </div>
               <div className="card-body">
                 <button
-                  className="btn btn-primary" onClick={() => navigate("/HomeUser/ChatUser")}
+                  className="btn btn-primary"
+                  onClick={() => navigate("/HomeUser/ChatUser")}
                 >
                   Chat
                 </button>
               </div>
             </div>
           </div>
-          {/* <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button onClick={handleSearch}>Buscar</button>
-      <ul>
-        {searchResults.map((result) => (
-          <li>{alert(result)}</li>
-        ))}
-      </ul> */}
+
           <div className="col-sm-12 col-md-8 col-lg-10">
             <div
               className="
@@ -103,16 +108,28 @@ export function HomeUser() {
                 border 
                 album 
                 container
-                h-25 
                 "
+                style={{minHeight: '49vh', maxHeight: '52vh'}}
             >
               <div className="card-group">
+                <div className="col-12 mb-4">
+                  <input
+                    className=" col-10 border rounded-start-5"
+                    type="text"
+                    placeholder="Ingrese titulo del libro"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <button className=" col-2 border rounded-end-5" onClick={handleSearch}>
+                  <i class="fa-solid ">Buscar .</i>
+                  <i class="fa-solid fa-magnifying-glass fa-beat"></i></button>
+                </div>
                 {libros.map((item, id) => (
                   <>
                     {item.disponible ? (
                       <div className="col-lg-3 col-md-2 col-sm-1 col-xs-1 mb-2 p-2 ">
                         <div className="card shadow-sm mt-4 p-1">
-                          <img class="card-img" src={item.caratula} alt="..." />
+                          <img class="card-img" src={item.caratula} alt="..." style={{minHeight: '38vh', maxHeight: '40vh'}}/>
                           <div class="card-img-overlay">
                             <div className="card text-center  border-info  text-bg-dark ">
                               <div className="card-body">
@@ -133,7 +150,7 @@ export function HomeUser() {
                                           `${item.nombre}-${id}`,
                                           e.target.checked
                                         );
-                                        handleCheckboxChange(e, id)
+                                        handleCheckboxChange(e, id);
                                       }}
                                     />
                                     <i
@@ -148,11 +165,6 @@ export function HomeUser() {
                                 </p>
                               </div>
                             </div>
-                          </div>
-                          <div class="card-footer">
-                            <small>
-                              <span class="badge text-bg-success">Prestar</span>
-                            </small>
                           </div>
                         </div>
                       </div>
