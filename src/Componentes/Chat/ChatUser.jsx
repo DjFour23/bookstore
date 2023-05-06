@@ -27,7 +27,7 @@ export function ChatUser() {
   return (
     <div>
       <div className="costado1">
-        <h1> BookStore: Chat General</h1>
+        <h1> BookStore: Chat General (USER)</h1>
         <div className="screen">
           {chat.map((item, id) => (
             <div className="message" key={id}>

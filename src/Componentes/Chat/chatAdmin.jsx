@@ -1,23 +1,20 @@
-import { db } from "../../Firebase/config";
-import { auth } from "./../../Firebase/config";
+import * as React from "react";
 import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../Firebase/config";
+import { mensaje } from "../../Firebase/Api/api";
 import { useChat } from "./useChat";
-import { useState } from "react";
+export function ChatAdmin() {
+  const [message, setMessage] = React.useState("")
+  const { chat } = useChat()
 
-function chatAdmin() {
-  // const [message, setMessage] = useState("");
-  const { chat } = useChat();
-  console.log(chat);
+
+  const navigate = useNavigate();
   const sendMessage = async (e) => {
     try {
       e.preventDefault();
       const user = auth.currentUser;
-      mensaje(message, user.uid, user);
-      swal({
-        title: "OK",
-        text: `mensaje enviado`,
-        icon: "succes",
-      });
+      await mensaje(message, user.uid, user)
     } catch (error) {
       swal({
         title: "Error",
@@ -25,23 +22,34 @@ function chatAdmin() {
         icon: "error",
       });
     }
-  };
 
-  console.log(db);
+  }
   return (
     <div>
       <div className="costado1">
-        <h1>Chat BookStore</h1>
+        <h1> BookStore: Chat General (ADMIN)</h1>
+        <div className="screen">
+          {chat.map((item, id) => (
+            <div className="message" key={id}>
+              <ul style={{ listStyle: "none" }}>
+                <li>{item.nombre}:</li>
+                <li>{item.mensaje}</li>
+              </ul>
+            </div>
+          ))}
+        </div>
         <form>
           <input
             type="text"
-            value={message}
             placeholder="Escribir Mensaje"
             className="texto1"
             onChange={(e) => setMessage(e.target.value)}
           />
           <button type="submit" className="boton1" onClick={sendMessage}>
             Enviar
+          </button>
+          <button type="submit" className="boton1" onClick={() => navigate('/HomeAdmin')}>
+            Back
           </button>
         </form>
         <ul></ul>
@@ -50,4 +58,4 @@ function chatAdmin() {
   );
 }
 
-export default chatAdmin;
+export default ChatAdmin;
