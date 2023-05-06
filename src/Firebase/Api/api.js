@@ -104,7 +104,7 @@ export const mensaje = async (mensaje,id,usuario) => {
     usuario_id: id,
     nombre: usuarioInfo.name,
     mensaje,
-    timestamp: Date.now(),
+    timestamp: Date.now()
   });
 }
 
