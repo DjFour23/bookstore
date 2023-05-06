@@ -4,9 +4,6 @@ import { getLibros } from "./../../Firebase/Api/api";
 import { useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../Firebase/config";
-//import { useChat } from "../Chat/useChat";
-//import { auth } from "./../../Firebase/config";
-//import swal from "sweetalert";
 
 // User view
 export function HomeUser() {
@@ -67,24 +64,6 @@ export function HomeUser() {
     }
   };
 
-  // const handleDisponibilidadChange = async (id, disponibilidad) => {
-  //   try {
-  //     const docRef = firebase.firestore().collection('libros').doc(id);
-  //     await docRef.update({ disponible: disponibilidad });
-  //     // Actualizar los libros mostrados en el componente
-  //     const updatedLibros = libros.map((libro) => {
-  //       if (libro.id === id) {
-  //         return { ...libro, disponible: disponibilidad };
-  //       } else {
-  //         return libro;
-  //       }
-  //     });
-  //     setLibros(updatedLibros);
-  //   } catch (error) {
-  //     console.error(error.message);
-  //   }
-  // };
-
   const actualizarDisponibilidad = async (id, disponibilidad) => {
     try {
       const docRef = doc(db, "libros", id);
@@ -118,7 +97,7 @@ export function HomeUser() {
       </div>
       <div className="container text-center">
         <div className="row">
-          <div className="col-sm-12 col-md-4 col-lg-2 mb-5">
+    <div className="col-sm-12 col-md-4 col-lg-2 mb-5">
             <div className="card rounded-5">
               <br></br>
               <div className="card-body">
@@ -171,7 +150,7 @@ export function HomeUser() {
                 </div>
                 {libros.map((item, id) => (
                   <>
-                    <div className="col-lg-3 col-md-2 col-sm-1 col-xs-1 mb-2 p-2 ">
+                    <div className="col-lg-3 col-md-6 col-sm-6 col-xs-1 mb-2 p-2 ">
                       <div className="card shadow-sm mt-4 p-1">
                         <img
                           class="card-img"
