@@ -67,10 +67,10 @@ const contactUs = () => {
                     <div className="card text-center">
                       <div className="py-4 p-2">
                         <div id="profileImg">
-                          <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAEVnW2B4QasCCiHD7PpFsebzeARoT_Isozg&usqp=CAU'} alt="imgProfileFb" />{" "}
+                          <img class="rounded-circle" src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAEVnW2B4QasCCiHD7PpFsebzeARoT_Isozg&usqp=CAU'} alt="cosa" />{" "}
                         </div>
                         <div className="mt-3 d-flex flex-row justify-content-center">
-                          <h5>Don't click bellow</h5>{" "}
+                          <i className="fa-xl"> Don't click bellow </i>
                           <span className="facebook ms-2 d-flex flex-row justify-content-center "></span>
                         </div>
                         <div className="mt-3">
