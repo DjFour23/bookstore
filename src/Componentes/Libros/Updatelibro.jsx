@@ -21,10 +21,6 @@ function UpdateLibro() {
   const navigate = useNavigate();
   const params = useParams();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setlibro({ ...libro, [name]: value });
-  };
 
   const handleDisponibleChange = (event) => {
     const { value } = event.target;
