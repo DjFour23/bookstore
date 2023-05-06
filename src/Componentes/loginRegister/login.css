@@ -1,10 +1,10 @@
 .contentForm{
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
     width: 100vw;
     height: 100vh;
+    padding-top: 20px;
 }
 
 .boxForm{
@@ -26,4 +26,11 @@
 
 .error{
     background-color: red !important;
+}
+
+
+@media screen and (min-width: 1024px) {
+    .contentForm{
+        justify-content: center;
+    }
 }

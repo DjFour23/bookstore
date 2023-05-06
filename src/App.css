@@ -1,4 +1,5 @@
 .App {
+
   height: 100vh;
   width: 100%;
   padding: 0 4px;
@@ -170,4 +171,30 @@ th {
 .fancy-checkbox input[type="checkbox"]:checked ~ .unchecked
 {
     display: none;
+}
+
+.costado{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+
+}
+
+.costado1{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  border: 1px solid black;
+  
+}
+
+.texto1{
+  width: 50%;
+  display: flex;
+  
+}
+.boton1{
+  width: 50%;
 }

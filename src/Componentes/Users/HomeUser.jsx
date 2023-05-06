@@ -1,11 +1,17 @@
-import { useAuth } from "../../Context/authContext";
 import * as React from "react";
+import { useAuth } from "../../Context/authContext";
 import { getLibros } from "./../../Firebase/Api/api";
+import { useNavigate } from "react-router-dom";
+//import { useChat } from "../Chat/useChat";
+//import { auth } from "./../../Firebase/config";
+//import swal from "sweetalert";
 
 // User view
 export function HomeUser() {
+
   const { logout, user } = useAuth();
 
+  const navigate = useNavigate();
   // Log out - User
   const handleLogout = async () => {
     try {
@@ -23,6 +29,7 @@ export function HomeUser() {
       docs.push({ ...doc.data(), id: doc.id });
     });
     setLibros(docs);
+    /*  console.log(docs); */
   };
 
   // cargar los libros
@@ -57,15 +64,22 @@ export function HomeUser() {
       <div className="container text-center">
         <div className="row">
           <div className="col-sm-12 col-md-4 col-lg-2 mb-5">
-            <div class="card rounded-5">
+            <div className="card rounded-5">
               <br></br>
-              <div class="card-body">
+              <div className="card-body">
                 {/* {console.log(user)} */}
-                <h5 class="card-title">{user.displayName || user.email}</h5>
+                <h5 className="card-title">{user.displayName || user.email}</h5>
                 <br></br>
-                <a href="/" onClick={handleLogout} class="btn btn-danger">
+                <a href="/" onClick={handleLogout} className="btn btn-danger">
                   logout
                 </a>
+              </div>
+              <div className="card-body">
+                <button
+                  className="btn btn-primary" onClick={() => navigate("/HomeUser/ChatUser")}
+                >
+                  Chat
+                </button>
               </div>
             </div>
           </div>
@@ -92,7 +106,7 @@ export function HomeUser() {
                 h-25 
                 "
             >
-              <div class="card-group">
+              <div className="card-group">
                 {libros.map((item, id) => (
                   <>
                     {item.disponible ? (

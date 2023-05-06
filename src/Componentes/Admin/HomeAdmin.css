@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    gap: 10px;
 }
 
 .HeaderAdmin button{
@@ -54,4 +55,16 @@
     transform: scale(1.01);
     transition: .2s ease;
     cursor: pointer;
+}
+
+.buttonsHeaderAdmin{
+    flex-direction: column-reverse;
+    gap: 10px !important;
+}
+
+@media screen and (min-width: 720px) {
+    .buttonsHeaderAdmin{
+        flex-direction: row !important;
+        gap: 30px !important;
+    }
 }

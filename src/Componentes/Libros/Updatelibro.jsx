@@ -35,7 +35,7 @@ function UpdateLibro() {
         if (urlOk) {
           await updateLibro(params.id, libro.nombre, libro.autor, libro.descripcion, libro.genero, libro.year, libro.disponible, libro.caratula);
           swal({
-            title: "Updated book",
+            title: "The book has been updated",
             icon: "success",
           });
           navigate('/HomeAdmin')
@@ -73,7 +73,7 @@ function UpdateLibro() {
     <>
       <main className="contentForm container">
         <h2 style={{ marginBottom: "20px" }}>Update book</h2>
-        <div className="boxForm">
+        <div className="boxForm" style={{width: "100%", maxWidth: "500px"}}>
           <form>
             <div className="form-group">
               <label htmlFor="title">Title:</label>
@@ -109,6 +109,7 @@ function UpdateLibro() {
                 id="descripcion"
                 value={libro.descripcion}
                 className="form-control"
+                rows="5"
                 onChange={({ target }) => {
                   setlibro((data) => ({ ...data, descripcion: target.value }));
                 }}
