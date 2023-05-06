@@ -11,6 +11,7 @@ import { db } from "./../config"
 
 const collectionBook = 'libros';
 const collectionChat = 'chat';
+const collectionUser = 'usuarios';
 // validar url
 export const validURL = async (url) => {
   var pattern = new RegExp(
@@ -107,4 +108,70 @@ export const mensaje = async (mensaje,id,usuario) => {
     timestamp: Date.now()
   });
 }
+
+// Query: libro's info
+export const info_libro = async (uid) => {
+  const docRef = doc(db, `libros/${uid}`)
+  const query = await getDoc(docRef)
+  const info =  query.data()
+  return info
+
+}
+
+// Prestar libro
+export const prestar = async (id_libro,id_usuario,usuario) => {
+  const usuarioInfo = await info(usuario)
+  const libroInfo = await info_libro(id_libro)
+  const libros = []
+  // cambio de disponibilidad del libro
+  await updateDoc(doc(db, collectionBook, id_libro), {
+    nombre: libroInfo.nombre,
+    autor: libroInfo.autor,
+    descripcion: libroInfo.descripcion,
+    genero: libroInfo.genero,
+    year: libroInfo.year,
+    disponible: false,
+    caratula: libroInfo.caratula
+  });
+  // asignar un libro en la lista de libros del usuario
+  libros.push(id_libro)
+  await updateDoc(doc(db, collectionUser, id_usuario), {
+    name: usuarioInfo.name, 
+    lastname: usuarioInfo.lastname, 
+    email: usuarioInfo.email, 
+    password: usuarioInfo.password, 
+    role: usuarioInfo.role,
+    libros: libros
+  });
+}
+
+// Devolver libro
+export const devolver = async (id_libro,id_usuario,usuario) => {
+  const usuarioInfo = await info(usuario)
+  const libroInfo = await info_libro(id_libro)
+  // cambio de disponibilidad del libro
+  await updateDoc(doc(db, collectionBook, id_libro), {
+    nombre: libroInfo.nombre,
+    autor: libroInfo.autor,
+    descripcion: libroInfo.descripcion,
+    genero: libroInfo.genero,
+    year: libroInfo.year,
+    disponible: true,
+    caratula: libroInfo.caratula
+  });
+  const prestados = usuarioInfo.libros
+  const index = prestados.indexOf(id_libro);
+  prestados.splice(index, 1);
+  
+  // quitar libro en la lista de libros del usuario
+  await updateDoc(doc(db, collectionUser, id_usuario), {
+    name: usuarioInfo.name, 
+    lastname: usuarioInfo.lastname, 
+    email: usuarioInfo.email, 
+    password: usuarioInfo.password, 
+    role: usuarioInfo.role,
+    libros: prestados
+  });
+}
+
 
