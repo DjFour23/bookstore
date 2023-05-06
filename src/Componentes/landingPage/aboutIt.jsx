@@ -7,7 +7,7 @@ class aboutIt extends Component {
         <a name="aboutIt" href="/#" style={{height: "1px",width: "1px", position: 'absolute', overflow: 'hidden'}}>.</a>
         <div className="container">
           <div className="row">
-            <div className="card text-center  border-info  text-bg-dark ">
+            <div className="card text-center  border-info  text-bg-transparent ">
               <div className="card-header">Featured</div>
               <div className="card-body">
                 <p className="card-text lead mb-4 fw-semibold">
