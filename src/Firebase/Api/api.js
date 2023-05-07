@@ -16,13 +16,13 @@ const collectionUser = 'usuarios';
 export const validURL = async (url) => {
   var pattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
+    "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+    "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+    "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+    "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+    "(\\#[-a-z\\d_]*)?$",
     "i"
-  ) 
+  )
   return !!pattern.test(url);
 }
 // validar formulario libros
@@ -57,12 +57,15 @@ export const saveLibro = async (nombre, autor, descripcion, genero, year, dispon
     genero: genero,
     year: parseInt(year),
     disponible: Boolean(disponible),
-    caratula: caratula
+    caratula: caratula,
+    createAt: Date.now(),
+    updateAt: Date.now()
   });
 }
 
 // Actualizar libro
-export const updateLibro = async (id, nombre, autor, descripcion, genero, year, disponible, caratula) =>
+export const updateLibro = async (id, nombre, autor, descripcion, genero, year, disponible, caratula) => {
+  const libroInfo = await info_libro(id)
   await updateDoc(doc(db, collectionBook, id), {
     nombre: nombre,
     autor: autor,
@@ -70,14 +73,18 @@ export const updateLibro = async (id, nombre, autor, descripcion, genero, year, 
     genero: genero,
     year: parseInt(year),
     disponible: Boolean(disponible),
-    caratula: caratula
+    caratula: caratula,
+    createAt: libroInfo.createAt,
+    updateAt: Date.now()
   });
+}
+
 
 // validar formulario registro usuario
-export const registerOk = async (nombre,apellido,email,password,role) => {
+export const registerOk = async (nombre, apellido, email, password, role) => {
   let ok = true
   let response = { correcto: ok, campo: "" }
-  const campos = [nombre,apellido,email,password,role]
+  const campos = [nombre, apellido, email, password, role]
   const name = ["name", "lasname", "email", "password", "role"]
   for (const key in campos) {
     if (campos[key] === "" || campos[key] === "0") {
@@ -94,12 +101,12 @@ export const registerOk = async (nombre,apellido,email,password,role) => {
 export const info = async (usuario) => {
   const docRef = doc(db, `usuarios/${usuario.uid}`)
   const query = await getDoc(docRef)
-  const info =  query.data()
+  const info = query.data()
   return info
 
 }
 // Enviar mensaje
-export const mensaje = async (mensaje,id,usuario) => {
+export const mensaje = async (mensaje, id, usuario) => {
   const usuarioInfo = await info(usuario)
   await addDoc(collection(db, collectionChat), {
     usuario_id: id,
@@ -113,13 +120,13 @@ export const mensaje = async (mensaje,id,usuario) => {
 export const info_libro = async (uid) => {
   const docRef = doc(db, `libros/${uid}`)
   const query = await getDoc(docRef)
-  const info =  query.data()
+  const info = query.data()
   return info
 
 }
 
 // Prestar libro
-export const prestar = async (id_libro,id_usuario,usuario) => {
+export const prestar = async (id_libro, id_usuario, usuario) => {
   const usuarioInfo = await info(usuario)
   const libroInfo = await info_libro(id_libro)
   const libros = usuarioInfo.libros
@@ -131,22 +138,24 @@ export const prestar = async (id_libro,id_usuario,usuario) => {
     genero: libroInfo.genero,
     year: libroInfo.year,
     disponible: false,
-    caratula: libroInfo.caratula
+    caratula: libroInfo.caratula,
+    createAt: libroInfo.createAt,
+    updateAt: libroInfo.updateAt
   });
   // asignar un libro en la lista de libros del usuario
   libros.push(id_libro)
   await updateDoc(doc(db, collectionUser, id_usuario), {
-    name: usuarioInfo.name, 
-    lastname: usuarioInfo.lastname, 
-    email: usuarioInfo.email, 
-    password: usuarioInfo.password, 
+    name: usuarioInfo.name,
+    lastname: usuarioInfo.lastname,
+    email: usuarioInfo.email,
+    password: usuarioInfo.password,
     role: usuarioInfo.role,
     libros: libros
   });
 }
 
 // Devolver libro
-export const devolver = async (id_libro,id_usuario,usuario) => {
+export const devolver = async (id_libro, id_usuario, usuario) => {
   const usuarioInfo = await info(usuario)
   const libroInfo = await info_libro(id_libro)
   // cambio de disponibilidad del libro
@@ -157,17 +166,19 @@ export const devolver = async (id_libro,id_usuario,usuario) => {
     genero: libroInfo.genero,
     year: libroInfo.year,
     disponible: true,
-    caratula: libroInfo.caratula
+    caratula: libroInfo.caratula,
+    createAt: libroInfo.createAt,
+    updateAt: Date.now()
   });
   const prestados = usuarioInfo.libros
   const index = prestados.indexOf(id_libro);
   prestados.splice(index, 1);
   // quitar libro en la lista de libros del usuario
   await updateDoc(doc(db, collectionUser, id_usuario), {
-    name: usuarioInfo.name, 
-    lastname: usuarioInfo.lastname, 
-    email: usuarioInfo.email, 
-    password: usuarioInfo.password, 
+    name: usuarioInfo.name,
+    lastname: usuarioInfo.lastname,
+    email: usuarioInfo.email,
+    password: usuarioInfo.password,
     role: usuarioInfo.role,
     libros: prestados
   });
