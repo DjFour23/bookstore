@@ -183,5 +183,15 @@ export const devolver = async (id_libro, id_usuario, usuario) => {
     libros: prestados
   });
 }
+// Función de comparación
+export const comparar = (a, b) => {
+  if (a.nombre < b.nombre) {
+    return -1;
+  } else if (a.nombre > b.nombre) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
 
 
