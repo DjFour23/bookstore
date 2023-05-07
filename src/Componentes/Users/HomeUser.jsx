@@ -138,9 +138,6 @@ return (
           <div className="card rounded-5">
             <br></br>
             <div className="card-body">
-              {/* {console.log(user)} */}
-              <h5 className="card-title">{user.displayName || user.email}</h5>
-              <br></br>
               <a href="/" onClick={handleLogout} className="btn btn-danger">
                 logout
               </a>
