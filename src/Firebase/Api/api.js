@@ -143,7 +143,7 @@ export const prestar = async (id_libro, id_usuario, usuario) => {
     updateAt: libroInfo.updateAt
   });
   // asignar un libro en la lista de libros del usuario
-  libros.push(id_libro)
+  libros.push({ id: id_libro, nombre: libroInfo.nombre, disponible: false, caratula: libroInfo.caratula })
   await updateDoc(doc(db, collectionUser, id_usuario), {
     name: usuarioInfo.name,
     lastname: usuarioInfo.lastname,
