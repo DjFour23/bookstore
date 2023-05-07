@@ -122,7 +122,7 @@ export const info_libro = async (uid) => {
 export const prestar = async (id_libro,id_usuario,usuario) => {
   const usuarioInfo = await info(usuario)
   const libroInfo = await info_libro(id_libro)
-  const libros = []
+  const libros = usuarioInfo.libros
   // cambio de disponibilidad del libro
   await updateDoc(doc(db, collectionBook, id_libro), {
     nombre: libroInfo.nombre,
@@ -162,7 +162,6 @@ export const devolver = async (id_libro,id_usuario,usuario) => {
   const prestados = usuarioInfo.libros
   const index = prestados.indexOf(id_libro);
   prestados.splice(index, 1);
-  
   // quitar libro en la lista de libros del usuario
   await updateDoc(doc(db, collectionUser, id_usuario), {
     name: usuarioInfo.name, 
