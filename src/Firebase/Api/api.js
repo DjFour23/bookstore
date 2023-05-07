@@ -165,7 +165,7 @@ export const devolver = async (id_libro, id_usuario, usuario) => {
     descripcion: libroInfo.descripcion,
     genero: libroInfo.genero,
     year: libroInfo.year,
-    disponible: true,
+    disponible: false,
     caratula: libroInfo.caratula,
     createAt: libroInfo.createAt,
     updateAt: Date.now()
