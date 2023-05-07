@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useAuth } from "../../Context/authContext";
-import { getLibros,devolver,prestar } from "./../../Firebase/Api/api";
+import { getLibros,devolver,prestar,comparar } from "./../../Firebase/Api/api";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../Firebase/config";
 import swal from "sweetalert";
@@ -28,8 +28,9 @@ export function HomeUser() {
     querySnapshot.forEach((doc) => {
       docs.push({ ...doc.data(), id: doc.id });
     });
-    setLibros(docs);
-    setLibrosOriginales(docs);
+    const librosOrdenados = docs.sort(comparar);
+    setLibros(librosOrdenados);
+    setLibrosOriginales(librosOrdenados);
   };
 
   // Manejar el estado de los checkboxes
