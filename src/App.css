@@ -173,23 +173,76 @@ th {
     display: none;
 }
 
-.costado{
-  display: flex;
-  justify-content: center;
-  width: 100%;
 
 
-}
-
-.costado1{
+.container-costado1 {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  width: 50%;
+  height: 100vh;
+  /* border: 1px solid black; */
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.costado1{
   border: 1px solid black;
-  
+  padding: 25px;
+  border-radius: 5px;
+}
+.screen {
+  max-width: 800px;
+  width: 100%;
+  height: 57vh;
+  overflow-y: scroll;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #fff;
 }
 
+
+.Botones-chat form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.Botones-chat form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.Botones-chat form button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.Botones-chat form button.boton1 {
+  background-color: #2196f3;
+  color: #fff;
+}
+
+.Botones-chat form button.boton1:hover {
+  background-color: #0d47a1;
+}
+.Botones-chat form button.boton2 {
+  background-color: #f34545;
+  color: #fff;
+}
+
+.Botones-chat form button.boton2:hover {
+  background-color: #a71616;
+}
 .texto1{
   width: 50%;
   display: flex;
@@ -198,3 +251,25 @@ th {
 .boton1{
   width: 50%;
 }
+.boton2{
+  width: 50%;
+}
+
+#boton-logout{
+  background-color: #f34545;
+  color: #fff;
+}
+
+
+#boton-logout:hover{
+  background-color: #9d1d1d;
+  color: #fff;
+}
+
+.card-body{
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+  margin-bottom: 15px
+}
+

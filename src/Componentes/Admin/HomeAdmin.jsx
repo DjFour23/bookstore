@@ -1,6 +1,6 @@
 import { useAuth } from "../../Context/authContext";
 import * as React from "react";
-import { getLibros, deleteLibro } from "./../../Firebase/Api/api";
+import { getLibros, deleteLibro,comparar } from "./../../Firebase/Api/api";
 import swal from "sweetalert";
 import "./HomeAdmin.css";
 import { useNavigate } from "react-router-dom";
@@ -29,8 +29,10 @@ export function HomeAdmin() {
     querySnapshot.forEach((doc) => {
       docs.push({ ...doc.data(), id: doc.id });
     });
-    setLibros(docs);
+    const librosOrdenados = docs.sort(comparar);
+    setLibros(librosOrdenados);
   };
+  
 
   // Eliminar un libro
   const onDelete = async (id,nombre) => {
@@ -83,6 +85,7 @@ export function HomeAdmin() {
             </button>
             <button
               className="btn btn-secondary"
+              id="boton-logout"
               onClick={() => handleLogout()}
             >
               Logout
