@@ -60,14 +60,14 @@ const contactUs = () => {
                 </div>
               </form>
             </div>
-            <div class="col-sm-4 mt-3 d-flex justify-content-center text-center">
-              <div class="row d-flex justify-content-center">                
-                <div class="col m-2">
-                  <div class="container height-100 d-flex justify-content-center align-items-center">
-                    <div class="card text-bg-warning text-center border-danger border-2 rounded-pill">
-                      <div class="py-4 p-2">
-                        <div class="  " id="profileImg">
-                          <img class="p-1 rounded-circle" src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAEVnW2B4QasCCiHD7PpFsebzeARoT_Isozg&usqp=CAU'} alt="cosa" />{" "}
+            <div className="col-sm-4 mt-3 d-flex justify-content-center text-center">
+              <div className="row d-flex justify-content-center">                
+                <div className="col m-2">
+                  <div className="container height-100 d-flex justify-content-center align-items-center">
+                    <div className="card text-bg-warning text-center border-danger border-2 rounded-pill">
+                      <div className="py-4 p-2">
+                        <div className="  " id="profileImg">
+                          <img className="p-1 rounded-circle" src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAEVnW2B4QasCCiHD7PpFsebzeARoT_Isozg&usqp=CAU'} alt="cosa" />{" "}
                         </div>
                         <div className="mt-3 d-flex flex-row justify-content-center">
                           <i className="fa-xl"> Don't click bellow </i>
@@ -75,12 +75,12 @@ const contactUs = () => {
                         </div>
                         <div className="mt-3">
                           <a
-                            class="btn btn-dark rounded-pill   "
+                            className="btn btn-dark rounded-pill   "
                             target="_blank"
                             rel="noreferrer"
                             href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                           >
-                            Don't click <i class="fab fa-youtube text-danger"></i>
+                            Don't click <i className="fab fa-youtube text-danger"></i>
                           </a>
                         </div>
                       </div>
