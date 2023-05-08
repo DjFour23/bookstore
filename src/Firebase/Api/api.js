@@ -171,8 +171,12 @@ export const devolver = async (id_libro, id_usuario, usuario) => {
     updateAt: Date.now()
   });
   const prestados = usuarioInfo.libros
-  const index = prestados.indexOf(id_libro);
-  prestados.splice(index, 1);
+  for (const key in prestados) {
+    if (prestados[key].id === id_libro) {
+      prestados.splice(key, 1);
+      break
+    }
+  }
   // quitar libro en la lista de libros del usuario
   await updateDoc(doc(db, collectionUser, id_usuario), {
     name: usuarioInfo.name,
