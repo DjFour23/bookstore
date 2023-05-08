@@ -161,7 +161,7 @@ export function HomeUser() {
                     <i className="fa-solid fa-magnifying-glass fa-beat"></i>
                   </button>
                 </div>
-                {libros.map((item, id) => (
+                {libros.map((item,id) => (
                   <>
                     {item.disponible ? (
                       <div className="col-lg-3 col-md-6 col-sm-6 col-xs-1 mb-2 p-2 ">
