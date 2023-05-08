@@ -1,101 +1,50 @@
 import * as React from "react";
 import { useAuth } from "../../Context/authContext";
-import { getLibros,devolver,prestar,comparar } from "./../../Firebase/Api/api";
+import { devolver, comparar, info } from "./../../Firebase/Api/api";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../Firebase/config";
 import swal from "sweetalert";
 
 
 function Prestamos() {
-    const { logout, user } = useAuth();
+  const { user } = useAuth();
 
-    const navigate = useNavigate();
-    // Log out - User
-    const handleLogout = async () => {
-      try {
-        await logout();
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
-    const [libros, setLibros] = React.useState([{}]);
-    const [librosOriginales, setLibrosOriginales] = React.useState([]);
-  
-    // obtener libros
-    const getLinks = async () => {
-      const querySnapshot = await getLibros();
-      const docs = [];
-      querySnapshot.forEach((doc) => {
-        docs.push({ ...doc.data(), id: doc.id });
-      });
-      const librosOrdenados = docs.sort(comparar);
-      setLibros(librosOrdenados);
-      setLibrosOriginales(librosOrdenados);
-    };
-  
-    // Manejar el estado de los checkboxes
-    const [checkboxState, setCheckboxState] = React.useState(
-      JSON.parse(localStorage.getItem("checkboxes")) || {}
-    );
-  
-    const handleCheckboxChange = (event, itemId) => {
-      const newState = {
-        ...checkboxState,
-        [itemId]: event.target.checked,
-      };
-      setCheckboxState(newState);
-      localStorage.setItem("checkboxes", JSON.stringify(newState));
-    };
-  
-    // cargar los libros
-    React.useEffect(() => {
-      getLinks();
-    }, []);
-  
-    const [searchTerm, setSearchTerm] = React.useState("");
-  
-    const handleSearch = () => {
-      if (searchTerm === "") {
-        setLibros(librosOriginales);
-      } else {
-        const filteredLibros = librosOriginales.filter((libro) =>
-          libro.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setLibros(filteredLibros);
-      }
-    };
-  
-  // prestar un libro
-  const prestarLibro = async (id_libro, nombre) => {
-    try {
-      let confirm = await swal({
-        title: `Do you want to get the book ${nombre} ?`,
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      }).then((decision) => {
-        return decision;
-      });
-      if (confirm) {
-        const usuario = auth.currentUser;
-        await prestar(id_libro, usuario.uid, usuario)
-        getLinks();
-        swal({
-          title: "The book has been successfully lent",
-          icon: "success",
-        });
-      }
-    } catch (error) {
-      swal({
-        title: `${error}`,
-        text: `Try again`,
-        icon: "error",
-      });
+  const navigate = useNavigate();
+
+  const [libros, setLibros] = React.useState([{}]);
+  const [librosOriginales, setLibrosOriginales] = React.useState([]);
+
+  // obtener libros
+  const getLinks = async () => {
+    const usuario = auth.currentUser;
+    const books = await info(usuario).then((data) => { return data.libros })
+    const librosOrdenados = books.sort(comparar);
+    setLibros(librosOrdenados);
+    setLibrosOriginales(librosOrdenados);
+  };
+
+
+  // cargar los libros
+  React.useEffect(() => {
+    getLinks();
+  }, []);
+
+  const [searchTerm, setSearchTerm] = React.useState("");
+
+  const handleSearch = () => {
+    if (searchTerm === "") {
+      setLibros(librosOriginales);
+    } else {
+      const filteredLibros = librosOriginales.filter((libro) =>
+        libro.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setLibros(filteredLibros);
     }
   };
-  
-   // devolver un libro
-   const devolverLibro = async (id_libro, nombre) => {
+
+
+  // devolver un libro
+  const devolverLibro = async (id_libro, nombre) => {
     try {
       let confirm = await swal({
         title: `Do you want to return the book ${nombre} ?`,
@@ -122,7 +71,7 @@ function Prestamos() {
       });
     }
   };
-  
+
   // HTML - User view
   return (
     <>
@@ -148,7 +97,7 @@ function Prestamos() {
               </div>
             </div>
           </div>
-  
+
           <div className="col-sm-12 col-md-8 col-lg-10">
             <div
               className="
@@ -178,9 +127,9 @@ function Prestamos() {
                     <i className="fa-solid fa-magnifying-glass fa-beat"></i>
                   </button>
                 </div>
-                {libros.map((item, id) => (
+                {libros.map((item) => (
                   <>
-                    <div className="col-lg-3 col-md-6 col-sm-6 col-xs-1 mb-2 p-2 ">
+                    <div className="col-lg-3 col-md-6 col-sm-6 col-xs-1 mb-2 p-2 " key={item.id}>
                       <div className="card shadow-sm mt-4 p-1">
                         <img
                           className="card-img"
@@ -191,45 +140,15 @@ function Prestamos() {
                         <div className="card-img-overlay">
                           <div
                             className={`card text-center border-info ${item.disponible
-                                ? "text-bg-dark"
-                                : "text-bg-danger"
+                              ? "text-bg-dark"
+                              : "text-bg-danger"
                               }`}
                           >
                             <div className="card-body">
-                            
                               <div className="card-text lead mb-4 fw-semibold" >
                                 <h5 className="card-title">{item.nombre}</h5>
-                                <label className="fancy-checkbox">
-                                  <input
-                                    type="checkbox"
-                                    checked={
-                                        localStorage.getItem(
-                                            `${item.nombre}-${id}`
-                                            ) === "true"
-                                            ? true
-                                            : false
-                                        }
-                                    onChange={(e) => {
-                                        localStorage.setItem(
-                                            `${item.nombre}-${id}`,
-                                        e.target.checked
-                                        );
-                                        handleCheckboxChange(e, id);
-                                    }}
-                                    />
-                                  <i
-                                    className="fa-solid fa-star checked fa-lg"
-                                    style={{ color: "#eeff00" }}
-                                    ></i>
-                                  <i
-                                    className="fa-regular fa-star unchecked fa-lg"
-                                    style={{ color: "#eeff00" }}
-                                    ></i>
-                                </label>
-                                {item.disponible ? (
-                                    <button type="submit" onClick={() =>prestarLibro(item.id,item.nombre)}>Prestar</button>) :
-                                    <button type="submit" onClick={() =>devolverLibro(item.id,item.nombre)}>Devolver</button>}
-                            </div>
+                                <button type="submit" onClick={() => devolverLibro(item.id, item.nombre)}>Devolver</button>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -244,6 +163,6 @@ function Prestamos() {
       </div>
     </>
   );
-  }
+}
 
 export default Prestamos
