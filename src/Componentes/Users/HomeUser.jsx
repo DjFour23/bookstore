@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../Firebase/config";
 import swal from "sweetalert";
 
+
 // User view
 export function HomeUser() {
   const { logout, user } = useAuth();
@@ -140,7 +141,7 @@ return (
             <br></br>
             <div className="card-body">
               <a href="/" onClick={handleLogout} className="btn btn-danger">
-                logout
+                Logout
               </a>
             </div>
             <div className="card-body">
@@ -149,6 +150,12 @@ return (
                 onClick={() => navigate("/HomeUser/ChatUser")}
               >
                 Chat
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => navigate("/HomeUser/Prestamos")}
+              >
+                Prestamos
               </button>
             </div>
           </div>
@@ -179,8 +186,8 @@ return (
                   className=" col-2 border rounded-end-5"
                   onClick={handleSearch}
                 >
-                  <i class="fa-solid ">Buscar .</i>
-                  <i class="fa-solid fa-magnifying-glass fa-beat"></i>
+                  <i className="fa-solid ">Buscar .</i>
+                  <i className="fa-solid fa-magnifying-glass fa-beat"></i>
                 </button>
               </div>
               {libros.map((item, id) => (
@@ -188,12 +195,12 @@ return (
                   <div className="col-lg-3 col-md-6 col-sm-6 col-xs-1 mb-2 p-2 ">
                     <div className="card shadow-sm mt-4 p-1">
                       <img
-                        class="card-img"
+                        className="card-img"
                         src={item.caratula}
                         alt="..."
                         style={{ minHeight: "38vh", maxHeight: "40vh" }}
                       />
-                      <div class="card-img-overlay">
+                      <div className="card-img-overlay">
                         <div
                           className={`card text-center border-info ${item.disponible
                               ? "text-bg-dark"
@@ -201,9 +208,9 @@ return (
                             }`}
                         >
                           <div className="card-body">
-                            <p className="card-text lead mb-4 fw-semibold">
-                              <h5 class="card-title">{item.nombre}</h5>
-                              <label class="fancy-checkbox">
+                            <div className="card-text lead mb-4 fw-semibold">
+                              <h5 className="card-title">{item.nombre}</h5>
+                              <label className="fancy-checkbox">
                                 <input
                                   type="checkbox"
                                   checked={
@@ -222,18 +229,18 @@ return (
                                   }}
                                 />
                                 <i
-                                  class="fa-solid fa-star checked fa-lg"
+                                  className="fa-solid fa-star checked fa-lg"
                                   style={{ color: "#eeff00" }}
                                 ></i>
                                 <i
-                                  class="fa-regular fa-star unchecked fa-lg"
+                                  className="fa-regular fa-star unchecked fa-lg"
                                   style={{ color: "#eeff00" }}
                                 ></i>
                               </label>
                               {item.disponible ? (
                                 <button type="submit" onClick={() =>prestarLibro(item.id,item.nombre)}>Prestar</button>) :
                                 <button type="submit" onClick={() =>devolverLibro(item.id,item.nombre)}>Devolver</button>}
-                            </p>
+                            </div>
                           </div>
                         </div>
                       </div>

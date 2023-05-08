@@ -25,9 +25,9 @@ export function ChatUser() {
 
   }
   return (
-    <div>
+    <div className="container-costado1">
       <div className="costado1">
-        <h1> BookStore: Chat General (USER)</h1>
+        <h1 className="titulo-chat"> BookStore: Chat General (USER)</h1>
         <div className="screen">
           {chat.map((item, id) => (
             <div className="message" key={id}>
@@ -38,20 +38,22 @@ export function ChatUser() {
             </div>
           ))}
         </div>
+        <div className="Botones-chat">
         <form>
           <input
             type="text"
             placeholder="Escribir Mensaje"
             className="texto1"
             onChange={(e) => setMessage(e.target.value)}
-          />
+            />
           <button type="submit" className="boton1" onClick={sendMessage}>
             Enviar
           </button>
-          <button type="submit" className="boton1" onClick={() => navigate('/HomeUser')}>
+          <button type="submit" className="boton2" onClick={() => navigate('/HomeUser')}>
             Back
           </button>
         </form>
+        </div>
         <ul></ul>
       </div>
     </div>

@@ -85,6 +85,7 @@ export function HomeAdmin() {
             </button>
             <button
               className="btn btn-secondary"
+              id="boton-logout"
               onClick={() => handleLogout()}
             >
               Logout

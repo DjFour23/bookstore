@@ -11,6 +11,7 @@ import NewLibro from "./Componentes/Libros/Newlibro";
 import UpdateLibro from "./Componentes/Libros/Updatelibro";
 import ChatAdmin from "./Componentes/Chat/chatAdmin";
 import ChatUser from "./Componentes/Chat/ChatUser";
+import Prestamos from "./Componentes/Libros/Prestamos";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="HomeAdmin/UpdateLibro/:id" element={<ProtectedRoute><UpdateLibro/></ProtectedRoute>}/>
         <Route path="HomeUser" element={<ProtectedRoute><HomeUser/></ProtectedRoute> } />
         <Route path="HomeUser/ChatUser" element={<ProtectedRoute><ChatUser/></ProtectedRoute>}/>
+        <Route path="HomeUser/Prestamos" element={<ProtectedRoute><Prestamos/></ProtectedRoute>}/>
         <Route path="*" element={<h1>404: Not Found</h1>} />
     </Routes>
     </div>
