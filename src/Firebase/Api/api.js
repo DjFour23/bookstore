@@ -108,11 +108,12 @@ export const info = async (usuario) => {
 // Enviar mensaje
 export const mensaje = async (mensaje, id, usuario) => {
   const usuarioInfo = await info(usuario)
+  const fecha = new Date()
   await addDoc(collection(db, collectionChat), {
     usuario_id: id,
     nombre: usuarioInfo.name,
     mensaje,
-    timestamp: Date.now()
+    timestamp: fecha.toISOString().substring(0,19)
   });
 }
 
